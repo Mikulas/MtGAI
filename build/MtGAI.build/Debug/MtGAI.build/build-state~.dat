@@ -1,0 +1,59 @@
+TMtGAI
+v7
+r0
+t321543140.693454
+cCheck dependencies
+cCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o /Volumes/Data/Projects/MtGAI/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+cLd /Volumes/Data/Projects/MtGAI/build/Debug/MtGAI normal x86_64
+
+N/Developer/SDKs/MacOSX10.6.sdk
+c000000004CAA740B00000000000000EE
+t1286239243
+s238
+
+N/Volumes/Data/Projects/MtGAI/build/Debug/MtGAI
+t1299850340
+s10544
+
+N/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/MtGAI.LinkFileList
+c000000004D7A2464000000000000005E
+t1299850340
+s94
+
+N/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o
+t1299850339
+s66960
+
+N/Volumes/Data/Projects/MtGAI/main.cpp
+c000000004D7A2463000000000000008F
+t1299850339
+s143
+i<iostream>
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies321543140#321543140#0(0"0(0#1#0"3343187568374212096#0"0#
+
+CCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o /Volumes/Data/Projects/MtGAI/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
+s321543140.393164
+e321543140.418832
+r1
+xCompileC
+xbuild/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o
+x/Volumes/Data/Projects/MtGAI/main.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@45"Compile /Volumes/Data/Projects/MtGAI/main.cpp321543140#321543140#0(0"0(0#0#37"/Volumes/Data/Projects/MtGAI/main.cpp7955997338297972736#1145"    cd /Volumes/Data/Projects/MtGAI    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-generated-files.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-own-target-headers.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-all-target-headers.hmap -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-project-headers.hmap -F/Volumes/Data/Projects/MtGAI/build/Debug -I/Volumes/Data/Projects/MtGAI/build/Debug/include -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources/x86_64 -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources -c /Volumes/Data/Projects/MtGAI/main.cpp -o /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o0#
+
+CLd /Volumes/Data/Projects/MtGAI/build/Debug/MtGAI normal x86_64
+s321543140.418880
+e321543140.693417
+r1
+xLd
+x/Volumes/Data/Projects/MtGAI/build/Debug/MtGAI
+xnormal
+xx86_64
+lSLF07#2@51"Link /Volumes/Data/Projects/MtGAI/build/Debug/MtGAI321543140#321543140#0(0"0(0#0#0"8602866528#440"    cd /Volumes/Data/Projects/MtGAI    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/g++-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Volumes/Data/Projects/MtGAI/build/Debug -F/Volumes/Data/Projects/MtGAI/build/Debug -filelist /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/MtGAI.LinkFileList -mmacosx-version-min=10.6 -o /Volumes/Data/Projects/MtGAI/build/Debug/MtGAI0#
+
