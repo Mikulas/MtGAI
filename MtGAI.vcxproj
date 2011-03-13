@@ -69,6 +69,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CardContainer.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="Hand.cpp" />
@@ -79,9 +80,11 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardContainer.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="HiddenZone.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PublicZone.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\cards.xml" />

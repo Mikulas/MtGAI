@@ -51,6 +51,9 @@ Card::Card(string name)
 	this->id = Card::id_next;
 	Card::id_next++;
 	this->name = name;
+	this->power = 0;
+	this->toughness = 0;
+	this->loyalty = 0;
 }
 
 void Card::addRule(string rule)
@@ -162,4 +165,27 @@ bool Card::isPermanent()
 bool Card::isLimited()
 {
 	return !this->hasSupertype("basic");
+}
+
+void Card::print()
+{
+	cout << "name: " << this->name << endl;
+	cout << "\tcost: " << this->mana_cost << endl;
+	cout << "\tloyalty: " << this->loyalty << endl;
+	cout << "\tpower: " << this->power << endl;
+	cout << "\ttoughness: " << this->toughness << endl;
+
+	cout << "\tsupertypes: ";
+	for (vector<string>::iterator it = this->supertypes.begin(); it != this->supertypes.end(); ++it) {
+		cout << *it << ", ";
+	}
+	cout << endl << "\ttypes: ";
+	for (vector<string>::iterator it = this->types.begin(); it != this->types.end(); ++it) {
+		cout << *it << ", ";
+	}
+	cout << endl << "\tsubtypes: ";
+	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) {
+		cout << *it << ", ";
+	}
+	cout << endl;
 }

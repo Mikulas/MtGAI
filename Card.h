@@ -43,6 +43,8 @@ public:
 	bool isLimited(); // 4 cards per deck for most cards
 	bool isPermanent();
 
+	void print();
+
 	bool Card::operator== (Card card) {
 		return this->id == card.id;
 	}
