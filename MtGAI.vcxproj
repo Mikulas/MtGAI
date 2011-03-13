@@ -70,11 +70,18 @@
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Database.cpp" />
+    <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="Hand.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
+    <ClInclude Include="CardContainer.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="Deck.h" />
+    <ClInclude Include="Hand.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\cards.xml" />

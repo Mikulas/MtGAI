@@ -54,32 +54,30 @@ Card Database::get(string name)
 	string input;
 	bool cardFound = false;
 	
-	tr1::regex rx("[ \t]*<name>(.*?)</name>");
-	string row = string("<name>") + name + string("</name>");
+	tr1::regex rg_name("[ \t]*<name>(.*?)</name>");
+	tr1::regex rg_rule("[ \t]*<rule([^>]*)>(.*?)</rule>");
 	Card card = Card(name);
 	
 	if (!data.is_open()) {
 		cout << "file not found\n";
 		return Card("unknown card");
 	}
-
-	//typedef match_results<const char*> cmatch;
-
+	
 	while (!data.eof()) {
 		getline(data, input);
 		tr1::cmatch res;
 
-		if (regex_match(input.c_str(), res, rx)) {
-			cout << res[1] << "\n";
+		if (regex_match(input.c_str(), res, rg_name)) {
+			//cout << res[1] << "\n";
+			//findAndReplace(res[1], "&apos;", "'");
+			//findAndReplace(res[1], "&quot;", "\"");
+			if (res[1] == name) {
+				cardFound = true;
+				continue;
+			}
 		}
-
-		if (input.find(row) != string::npos) {
-			findAndReplace(name, "&apos;", "'");
-			findAndReplace(name, "&quot;", "\"");
-			cardFound = true;
-		}
-		if (cardFound && (input.find("<rule ") != string::npos || input.find("<rule>") != string::npos)) {
-			card.addRule(input);
+		if (cardFound && regex_match(input.c_str(), res, rg_rule)) {
+			card.addRule(res[2]);
 		}
 		if (cardFound && input.find("</card>") != string::npos) {
 			break;

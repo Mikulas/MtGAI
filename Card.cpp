@@ -2,8 +2,12 @@
 
 using namespace std;
 
+int Card::id_last = 1;
+
 Card::Card(string name)
 {
+	this->id = Card::id_last;
+	Card::id_last++;
 	this->name = name;
 }
 
