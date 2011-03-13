@@ -123,7 +123,43 @@ void Card::addSubtype(string subtype)
 	}
 }
 
+bool Card::hasSupertype(string supertype)
+{
+	for (vector<string>::iterator it = this->supertypes.begin(); it != this->supertypes.end(); ++it) {
+		if (*it == supertype) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Card::hasType(string type)
+{
+	for (vector<string>::iterator it = this->types.begin(); it != this->types.end(); ++it) {
+		if (*it == type) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Card::hasSubtype(string subtype)
+{
+	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) {
+		if (*it == subtype) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Card::isPermanent()
+{
+	// return true if is in proper zone;
+	return true; // todo implement
+}
+
 bool Card::isLimited()
 {
-	return true; // todo implement
+	return !this->hasSupertype("basic");
 }

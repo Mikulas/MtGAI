@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Database.h"
-#include "Deck.h"
+#include "Library.h"
 
 using namespace std;
 
@@ -20,13 +20,13 @@ int main (int argc, char * const argv[])
 	cout << (a == a2 ? "a == a2" : "a != a2") << endl;
 	cout << (a == b ? "a == b" : "a != b") << endl;
 
-	Deck deck = Deck();
-	deck.addCard(a);
-	deck.addCard(a);
-	deck.addCard(a2);
+	Library lib = Library();
+	lib.addCard(a);
+	lib.addCard(a);
+	lib.addCard(a2);
 	//deck.print();
-	deck.addCard(b);
-	deck.print();
+	lib.addCard(b);
+	lib.print();
 	
 	getchar();
 	getchar();
