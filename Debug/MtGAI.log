@@ -1,7 +1,7 @@
-﻿Build started 13.3.2011 16:44:21.
+﻿Build started 13.3.2011 19:51:54.
      1>Project "C:\Users\Mikulas\Documents\Visual Studio 2010\Projects\MtGAI\MtGAI.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\MtGAI.unsuccessfulbuild".
+         Creating "Debug\MtGAI.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Card.cpp
          Card.cpp
@@ -28,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.43
+Time Elapsed 00:00:04.77
