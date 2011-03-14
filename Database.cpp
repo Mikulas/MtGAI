@@ -16,79 +16,126 @@ void findAndReplace(string &tInput, string tFind, string tReplace) {
 	}
 }
 
-string * Database::get()
-{
-	ifstream data;
-	data.open("../../data/cards.xml");
-	string input;
-	bool isCard = false;
-	int pos = -1;
-	int count = 0;
-	while (!data.eof()) {
-		getline(data, input);
-		if (input.find("<card>") != string::npos) {
-			isCard = true;
-			continue;
-		}
-		if (isCard && (pos = input.find("<name>")) != string::npos) {
-			count++;
-			input = input.substr(pos + 6, input.length() - pos - 6 - 7);
-			
-			findAndReplace(input, "&apos;", "'");
-			findAndReplace(input, "&quot;", "\"");
-			cout << input << "\n";
-			isCard = false;
-		}
-	}
-	cout << "\ntotal card count = " << count << "\n";
-	data.close();
+vector<Card> Database::cache;
 
-	string ret = string("RETURN");
-	return &ret;
-}
-
-Card Database::get(string name)
+void Database::buildCache()
 {
 	ifstream data;
 	data.open("C:\\Users\\Mikulas\\Documents\\Visual Studio 2010\\Projects\\MtGAI\\data\\cards.xml");
 	string input;
-	bool cardFound = false;
-	
-	tr1::regex rg_name("[ \t]*<name>(.*?)</name>");
-	tr1::regex rg_rule("[ \t]*<rule([^>]*)>(.*?)</rule>");
-	Card card = Card(name);
-	
+	tr1::regex rg_card(" <card>");
+	tr1::regex rg_node("[ \t]*<([^ ]+)([^>]*)>(.*?)</([^>]+)>");
+	tr1::cmatch res;
+
+	cout << "building card database cache...\n";
+
 	if (!data.is_open()) {
-		cout << "file not found\n";
-		return Card("unknown card");
+		throw exception("Database file not found");
 	}
 	
+	Card card = Card();
+	int size = 145868;
+	int line = 0;
 	while (!data.eof()) {
+		line ++;
+		cout << "\rline " << line << " out of " << size << " [" << (double) line / (double) size << "%]       ";
 		getline(data, input);
-		tr1::cmatch res;
 
-		if (regex_match(input.c_str(), res, rg_name)) {
-			//cout << res[1] << "\n";
-			//findAndReplace(res[1], "&apos;", "'");
-			//findAndReplace(res[1], "&quot;", "\"");
-			if (res[1] == name) {
-				cardFound = true;
-				continue;
-			}
+		if (regex_match(input.c_str(), res, rg_card)) {
+			Database::cache.push_back(card);
+			card = Card();
+			continue;
 		}
-		if (cardFound && regex_match(input.c_str(), res, rg_rule)) {
-			card.addRule(res[2]);
-		}
-		if (cardFound && input.find("</card>") != string::npos) {
-			break;
+
+		if (regex_match(input.c_str(), res, rg_node)) {
+			string node = res[1].str();
+			string value = res[3].str();
+
+			if (node == "name") card.name = value;
+			if (node == "pow") card.power = atoi(value.c_str());
+			if (node == "tgh") card.toughness = atoi(value.c_str());
+			if (node == "rule") card.addRule(value);
+			if (node == "type" && Card::validateSupertype(value)) card.addSupertype(value);
+			if (node == "type" && Card::validateType(value)) card.addType(value);
+			if (node == "type" && Card::validateSubtype(value, card.types)) card.addSubtype(value);
+			if (node == "cost") card.mana_cost = value;
 		}
 	}
 	data.close();
-	
-	return card;
+	cout << "\r                                         \rdone\n";
 }
 
-Card Database::getRandom()
+bool Database::isCached(string name)
 {
-	return Card("random");
+	for (vector<Card>::iterator it = Database::cache.begin(); it != Database::cache.end(); ++it) {
+		if (it->name == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
+Card Database::get(string name)
+{
+	bool cached = false;
+	vector<Card>::iterator it = Database::cache.begin();
+	for (; it != Database::cache.end(); ++it) {
+		if (it->name == name) {
+			cached = true;
+			break;
+		}
+	}
+	if (!cached) {
+		ifstream data;
+		data.open("C:\\Users\\Mikulas\\Documents\\Visual Studio 2010\\Projects\\MtGAI\\data\\cards.xml");
+		string input;
+		tr1::regex rg_card(string("[ \t]*<name>") + name + string("</name>"));
+		tr1::regex rg_node("[ \t]*<([^ ]+)([^>]*)>(.*?)</([^>]+)>");
+		tr1::regex rg_card_end("[ \t]*</card>");
+		tr1::cmatch res;
+
+		if (!data.is_open()) {
+			throw exception("Database file not found");
+		}
+		
+		Card card = Card();
+		bool found = false;
+
+		while (!data.eof()) {
+			getline(data, input);
+
+			if (regex_match(input.c_str(), res, rg_card)) {
+				found = true;
+			}
+
+			if (found && regex_match(input.c_str(), res, rg_node)) {
+				string node = res[1].str();
+				string value = res[3].str();
+
+				if (node == "name") card.name = value;
+				if (node == "pow") card.power = atoi(value.c_str());
+				if (node == "tgh") card.toughness = atoi(value.c_str());
+				if (node == "rule") card.addRule(value);
+				if (node == "type" && Card::validateSupertype(value)) card.addSupertype(value);
+				if (node == "type" && Card::validateType(value)) card.addType(value);
+				if (node == "type" && Card::validateSubtype(value, card.types)) card.addSubtype(value);
+				if (node == "cost") card.mana_cost = value;
+			}
+
+			if (found && regex_match(input.c_str(), res, rg_card_end)) {
+				break;
+			}
+		}
+		if (!found) {
+			throw exception("Card does not exist");
+		}
+		data.close();
+		Database::cache.push_back(card);
+		card.makeUnique();
+		return card;
+	}
+
+	Card card = *it;
+	card.makeUnique();
+	return card;
 }

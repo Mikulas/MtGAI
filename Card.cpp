@@ -58,7 +58,6 @@ Card::Card(string name)
 
 void Card::addRule(string rule)
 {
-	cout << "Adding rule " << rule << " to " << this->name << "\n";
 	this->rules.push_back(rule);
 }
 
@@ -75,7 +74,7 @@ void Card::setToughness(int toughness)
 void Card::addSupertype(string supertype)
 {
 	if (!Card::validateSupertype(supertype)) {
-		cout << "Invalid supertype " << supertype << ", not set\n";
+		throw exception("Invalid supertype");
 	}
 	bool alreadySet = false;
 	for (vector<string>::iterator it = this->supertypes.begin(); it != this->supertypes.end(); ++it) {
@@ -92,7 +91,7 @@ void Card::addSupertype(string supertype)
 void Card::addType(string type)
 {
 	if (!Card::validateType(type)) {
-		cout << "Invalid type " << type << ", not set\n";
+		throw exception("Invalid type");
 	}
 	bool alreadySet = false;
 	for (vector<string>::iterator it = this->types.begin(); it != this->types.end(); ++it) {
@@ -109,10 +108,10 @@ void Card::addType(string type)
 void Card::addSubtype(string subtype)
 {
 	if (this->types.size() == 0) {
-		cout << "Subtype cannot be set to card without any type\n";
+		throw exception("Subtype cannot be set to card without any type");
 	}
 	if (!Card::validateSubtype(subtype, this->types)) {
-		cout << "Invalid subtype " << subtype << ", not set\n";
+		throw exception("Invalid suptype");
 	}
 	bool alreadySet = false;
 	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) {
@@ -187,5 +186,15 @@ void Card::print()
 	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) {
 		cout << *it << ", ";
 	}
+	cout << endl << "\trules: ";
+	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
+		cout << *it << ", ";
+	}
 	cout << endl;
+}
+
+void Card::makeUnique()
+{
+	this->id = Card::id_next;
+	Card::id_next++;
 }

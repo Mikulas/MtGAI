@@ -1,27 +1,30 @@
 #include <iostream>
 
 #include <string>
+#include <time.h>
 #include "Database.h"
-#include "Player.h"
+#include "Game.h"
 
 using namespace std;
 
 int main (int argc, char * const argv[])
 {
-	Database db = Database();
-	Player p1 = Player();
+	srand((unsigned int)time(NULL));
 
-	p1.library.addCard(db.get("Disenchant"));
-	p1.library.addCard(db.get("Disenchant"));
-	p1.library.addCard(db.get("Disenchant"));
-	p1.library.addCard(db.get("Plains"));
-	p1.library.addCard(db.get("Plains"));
-	p1.library.addCard(db.get("Plains"));
-	p1.library.addCard(db.get("Plains"));
+	//Database::buildCache();
+	Database db = Database();
 	
-	p1.print();
-	p1.draw();
-	p1.print();
+	Game game = Game();
+	string deck[] = {"Abandoned Outpost", "Disenchant", "Plains", "Plains", "Island"};
+	for (int i = 0; i < sizeof(deck) / sizeof(string); i++) {
+		game.players[0].library.addCard(db.get(deck[i]));
+	}
+	
+	game.players[0].print();
+	game.players[0].library.shuffle();
+	game.players[0].print();
+	game.players[0].draw();
+	game.players[0].print();
 	
 	getchar();
 	getchar();

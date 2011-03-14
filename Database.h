@@ -8,8 +8,12 @@ using namespace std;
 
 class Database
 {
+private:
+	static vector<Card> cache;
+	static bool isCached(string);
+
 public:
-	string * get();
-	Card get(string name);
-	Card getRandom();
+	static void buildCache();
+
+	Card get(string);
 };

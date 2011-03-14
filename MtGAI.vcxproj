@@ -71,6 +71,7 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardContainer.cpp" />
     <ClCompile Include="Database.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="main.cpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardContainer.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="HiddenZone.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Hand.h" />
