@@ -15,6 +15,9 @@ Player::Player()
 void Player::play()
 {
 	/* play or set passed to true*/
+	if (rand() % 2 == 0) {
+		this->passed = true;
+	}
 }
 
 void Player::draw()

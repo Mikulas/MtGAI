@@ -25,6 +25,12 @@ Player* Game::getInactivePlayer()
 	return &this->players[this->active == 0 ? 1 : 0];
 }
 
+void Game::registerCallbackPlayers(string name, function<void()> callback)
+{
+	this->players[0].registerCallback(name, callback);
+	this->players[1].registerCallback(name, callback);
+}
+
 void Game::switchPriority()
 {
 	if (this->priority == -1) {
@@ -41,7 +47,10 @@ bool Game::playersPassed()
 
 void Game::playByPriority()
 {
-	while (!this->stack.isEmpty() && this->playersPassed()) {
+	this->players[0].passed = this->players[1].passed = false;
+	this->priority = this->active;
+	this->getPriorityPlayer()->callback("receivedPriority");
+	while (!this->playersPassed()) {
 		this->getPriorityPlayer()->play();
 		if (this->getPriorityPlayer()->passed) {
 			this->switchPriority();
@@ -51,6 +60,7 @@ void Game::playByPriority()
 			this->players[0].passed = this->players[1].passed = false;
 		}
 	}
+	this->priority = this->active;
 }
 
 void Game::turn()
@@ -72,9 +82,7 @@ void Game::turn()
 		//untap trigger
 	this->callback("untap");
 		//active player priority
-	while (this->priority != -1) {
-		this->getPriorityPlayer()->play();
-	}
+	this->playByPriority();
 		
 	//- draw
 		//active player draws a card
@@ -109,11 +117,16 @@ void Game::turn()
 
 void Game::play()
 {
-	this->players[0].registerCallback("receivedPriority", [](){
-		//this->library.size() <= 0
+	bool playing = true;
+
+	this->registerCallbackPlayers("receivedPriority", [&](){
+		if (this->getPriorityPlayer()->library.cards.size() == 0) {
+			cout << "player lost - no more cards in the deck" << endl;
+			playing = false;
+		}
 	});
 
-	while (1) {
+	while (playing) {
 		cout << "Turn of player " << this->active + 1 << endl;
 		this->turn();
 		this->active = this->active == 0 ? 1 : 0;

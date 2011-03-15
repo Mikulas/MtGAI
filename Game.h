@@ -21,6 +21,8 @@ public:
 	Player* getInactivePlayer();
 	Player* getPriorityPlayer();
 
+	void registerCallbackPlayers(string, function<void()>);
+
 	void switchPriority();
 	void playByPriority();
 	bool playersPassed();
