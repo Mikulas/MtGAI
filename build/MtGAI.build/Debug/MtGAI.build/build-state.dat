@@ -1,137 +1,0 @@
-TMtGAI
-v7
-r0
-t321553025.586329
-cCheck dependencies
-cCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o /Volumes/Data/Projects/MtGAI/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
-cCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Database.o /Volumes/Data/Projects/MtGAI/Database.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
-cCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Card.o /Volumes/Data/Projects/MtGAI/Card.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
-
-N/Developer/SDKs/MacOSX10.6.sdk
-c000000004CAA740B00000000000000EE
-t1286239243
-s238
-
-N/Volumes/Data/Projects/MtGAI/Card.cpp
-c000000004D7A3EA200000000000000EE
-t1299857058
-s238
-i"Card.h"
-
-N/Volumes/Data/Projects/MtGAI/Card.h
-c000000004D7A3E8900000000000000BF
-t1299857033
-s191
-i<string>
-i<iostream>
-i<vector>
-
-N/Volumes/Data/Projects/MtGAI/Database.cpp
-c000000004D7A490300000000000006AA
-t1299859715
-s1706
-i"Database.h"
-
-N/Volumes/Data/Projects/MtGAI/Database.h
-c000000004D7A4BC800000000000000D5
-t1299860424
-s213
-i<string>
-i<iostream>
-i<fstream>
-i<boost/regex.hpp>
-i"Card.h"
-
-N/Volumes/Data/Projects/MtGAI/build/Debug/MtGAI
-t1299857437
-s45424
-
-N/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Card.o
-t1299857072
-s130116
-
-N/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Database.o
-t2
-s0
-
-N/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/MtGAI.LinkFileList
-c000000004D7A264D000000000000011E
-t1299850829
-s286
-
-N/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o
-t2
-s0
-
-N/Volumes/Data/Projects/MtGAI/main.cpp
-c000000004D7A402F0000000000000153
-t1299857455
-s339
-i<iostream>
-i<string>
-i"Database.h"
-
-N/opt/local/lib/libboost_regex.dylib
-c000000004D7A47AA00000000001874C8
-t1299859370
-s1602760
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies321553025#321553025#0(0"0(0#1#0"3343187568374212096#0"0#
-
-CCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Card.o /Volumes/Data/Projects/MtGAI/Card.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
-s321549872.042304
-e321549872.368116
-r1
-xCompileC
-xbuild/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Card.o
-x/Volumes/Data/Projects/MtGAI/Card.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@45"Compile /Volumes/Data/Projects/MtGAI/Card.cpp321549872#321549872#0(0"0(0#0#37"/Volumes/Data/Projects/MtGAI/Card.cpp8719443104#1145"    cd /Volumes/Data/Projects/MtGAI    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-generated-files.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-own-target-headers.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-all-target-headers.hmap -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-project-headers.hmap -F/Volumes/Data/Projects/MtGAI/build/Debug -I/Volumes/Data/Projects/MtGAI/build/Debug/include -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources/x86_64 -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources -c /Volumes/Data/Projects/MtGAI/Card.cpp -o /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Card.o0#
-
-CCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Database.o /Volumes/Data/Projects/MtGAI/Database.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
-s321553025.170897
-e321553025.586250
-r0
-xCompileC
-xbuild/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Database.o
-x/Volumes/Data/Projects/MtGAI/Database.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.gcc.4_2
-oIn file included from /Volumes/Data/Projects/MtGAI/Database.cpp:1:
-o/Volumes/Data/Projects/MtGAI/Database.h:4:27: error: boost/regex.hpp: No such file or directory
-o/Volumes/Data/Projects/MtGAI/Database.cpp: In member function 'std::string* Database::get()':
-o/Volumes/Data/Projects/MtGAI/Database.cpp:45: warning: control reaches end of non-void function
-lSLF07#2@49"Compile /Volumes/Data/Projects/MtGAI/Database.cpp321553025#321553025#0(353"In file included from /Volumes/Data/Projects/MtGAI/Database.cpp:1:/Volumes/Data/Projects/MtGAI/Database.h:4:27: error: boost/regex.hpp: No such file or directory/Volumes/Data/Projects/MtGAI/Database.cpp: In member function 'std::string* Database::get()':/Volumes/Data/Projects/MtGAI/Database.cpp:45: warning: control reaches end of non-void function2(4@42"Boost/regex.hpp: No such file or directory321553025#67#96#2(7@63"In file included from /Volumes/Data/Projects/MtGAI/Database.cpp321553025#18446744073709551615#0#0(6@41"/Volumes/Data/Projects/MtGAI/Database.cpp321552515#1#0#1#0#0"0(13@85"Boost/regex.hpp: No such file or directory in /Volumes/Data/Projects/MtGAI/Database.h321553025#18446744073709551615#0#0(6@39"/Volumes/Data/Projects/MtGAI/Database.h321553024#4#0#4#0#0"0(6@39"/Volumes/Data/Projects/MtGAI/Database.h321553024#4#0#4#0#28"*: No such file or directory0(22@40"Control reaches end of non-void function321553025#257#96#0(6@41"/Volumes/Data/Projects/MtGAI/Database.cpp321552515#45#0#45#0#40"control reaches end of non-void function0(0#0#41"/Volumes/Data/Projects/MtGAI/Database.cpp8590402784#1153"    cd /Volumes/Data/Projects/MtGAI    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-generated-files.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-own-target-headers.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-all-target-headers.hmap -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-project-headers.hmap -F/Volumes/Data/Projects/MtGAI/build/Debug -I/Volumes/Data/Projects/MtGAI/build/Debug/include -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources/x86_64 -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources -c /Volumes/Data/Projects/MtGAI/Database.cpp -o /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/Database.o1#
-
-CCompileC build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o /Volumes/Data/Projects/MtGAI/main.cpp normal x86_64 c++ com.apple.compilers.gcc.4_2
-s321553025.170167
-e321553025.539830
-r0
-xCompileC
-xbuild/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o
-x/Volumes/Data/Projects/MtGAI/main.cpp
-xnormal
-xx86_64
-xc++
-xcom.apple.compilers.gcc.4_2
-oIn file included from /Volumes/Data/Projects/MtGAI/main.cpp:3:
-o/Volumes/Data/Projects/MtGAI/Database.h:4:27: error: boost/regex.hpp: No such file or directory
-lSLF07#2@45"Compile /Volumes/Data/Projects/MtGAI/main.cpp321553025#321553025#0(159"In file included from /Volumes/Data/Projects/MtGAI/main.cpp:3:/Volumes/Data/Projects/MtGAI/Database.h:4:27: error: boost/regex.hpp: No such file or directory1(4@42"Boost/regex.hpp: No such file or directory321553025#63#96#2(7@59"In file included from /Volumes/Data/Projects/MtGAI/main.cpp321553025#18446744073709551615#0#0(6@37"/Volumes/Data/Projects/MtGAI/main.cpp321550255#3#0#3#0#0"0(13@85"Boost/regex.hpp: No such file or directory in /Volumes/Data/Projects/MtGAI/Database.h321553025#18446744073709551615#0#0(6@39"/Volumes/Data/Projects/MtGAI/Database.h321553024#4#0#4#0#0"0(6@39"/Volumes/Data/Projects/MtGAI/Database.h321553024#4#0#4#0#28"*: No such file or directory0(0#0#37"/Volumes/Data/Projects/MtGAI/main.cpp8681288512#1145"    cd /Volumes/Data/Projects/MtGAI    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x c++ -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -fvisibility-inlines-hidden -mmacosx-version-min=10.6 -gdwarf-2 -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-generated-files.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-own-target-headers.hmap -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-all-target-headers.hmap -iquote /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/MtGAI-project-headers.hmap -F/Volumes/Data/Projects/MtGAI/build/Debug -I/Volumes/Data/Projects/MtGAI/build/Debug/include -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources/x86_64 -I/Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/DerivedSources -c /Volumes/Data/Projects/MtGAI/main.cpp -o /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/main.o1#
-
-CLd /Volumes/Data/Projects/MtGAI/build/Debug/MtGAI normal x86_64
-s321550237.867269
-e321550237.885029
-r1
-xLd
-x/Volumes/Data/Projects/MtGAI/build/Debug/MtGAI
-xnormal
-xx86_64
-lSLF07#2@51"Link /Volumes/Data/Projects/MtGAI/build/Debug/MtGAI321550237#321550237#0(0"0(0#0#0"8711961376#440"    cd /Volumes/Data/Projects/MtGAI    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/g++-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Volumes/Data/Projects/MtGAI/build/Debug -F/Volumes/Data/Projects/MtGAI/build/Debug -filelist /Volumes/Data/Projects/MtGAI/build/MtGAI.build/Debug/MtGAI.build/Objects-normal/x86_64/MtGAI.LinkFileList -mmacosx-version-min=10.6 -o /Volumes/Data/Projects/MtGAI/build/Debug/MtGAI0#
-
