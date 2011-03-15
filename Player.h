@@ -13,6 +13,8 @@ public:
 	Hand hand;
 	bool passed;
 	bool canDraw;
+	int life;
+	int poisson;
 
 	Player();
 

@@ -29,4 +29,5 @@ public:
 
 	void turn();
 	void play();
+	void end(int);
 };

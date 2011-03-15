@@ -10,6 +10,8 @@ Player::Player()
 	this->command = PublicZone();*/
 	this->passed = false;
 	this->canDraw = true;
+	this->life = 20;
+	this->poisson = 0;
 }
 
 void Player::play()

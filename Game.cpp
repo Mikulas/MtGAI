@@ -63,6 +63,14 @@ void Game::playByPriority()
 	this->priority = this->active;
 }
 
+void Game::end(int winner)
+{
+	cout << "Player #" << winner + 1 << " won" << endl;
+	getchar();
+	getchar();
+	exit(winner);
+}
+
 void Game::turn()
 {
 	Player *active = this->getActivePlayer();
@@ -89,6 +97,7 @@ void Game::turn()
 	if (active->canDraw)
 		active->draw();
 		//begin draw trigger
+	
 	this->callback("draw");
 		//active player priority
 	this->playByPriority();
@@ -112,6 +121,7 @@ void Game::turn()
 	this->playByPriority();
 	//
 	//ending
+	this->callback("cleanup");
 
 }
 
@@ -120,13 +130,28 @@ void Game::play()
 	bool playing = true;
 
 	this->registerCallbackPlayers("receivedPriority", [&](){
-		if (this->getPriorityPlayer()->library.cards.size() == 0) {
+		Player* player = this->getPriorityPlayer();
+		if (player->library.cards.size() == 0) {
 			cout << "player lost - no more cards in the deck" << endl;
-			playing = false;
+			this->end(this->active == 0 ? 1 : 0);
+		}
+		if (player->life <= 0) {
+			cout << "player lost - life depleted" << endl;
+			this->end(this->active == 0 ? 1 : 0);
+		}
+		if (player->poisson >= 10) {
+			cout << "player lost - too much poisson counters" << endl;
+			this->end(this->active == 0 ? 1 : 0);
+		}
+	});
+	this->registerCallback("cleanup", [&](){
+		if (this->getActivePlayer()->hand.cards.size() > 7) { // only active player has to discard
+			cout << "player has more than 7 cards in hand" << endl;
+			this->getActivePlayer()->hand.discard(this->getActivePlayer()->hand.cards.size() - 7);
 		}
 	});
 
-	while (playing) {
+	while (true) {
 		cout << "Turn of player " << this->active + 1 << endl;
 		this->turn();
 		this->active = this->active == 0 ? 1 : 0;
