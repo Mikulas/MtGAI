@@ -54,6 +54,8 @@ Card::Card(string name)
 	this->power = 0;
 	this->toughness = 0;
 	this->loyalty = 0;
+	this->tapped = false;
+	this->isUntappable = true;
 }
 
 void Card::addRule(string rule)

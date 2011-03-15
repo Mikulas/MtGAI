@@ -1,19 +1,30 @@
 #pragma once
+#include <vector>
+#include <functional>
+#include "Callback.h"
 #include "Player.h"
-#include "PublicZone.h"
+#include "GameStack.h"
 
-class Game
+class Game : public Callback
 {
 private:
 	int priority;
 	int active;
 	
 public:
-	PublicZone stack;
+	GameStack stack;
 
 	Game();
 
 	Player players[2];
-	Player getActivePlayer();
-	Player getPriorityPlayer();
+	Player* getActivePlayer();
+	Player* getInactivePlayer();
+	Player* getPriorityPlayer();
+
+	void switchPriority();
+	void playByPriority();
+	bool playersPassed();
+
+	void turn();
+	void play();
 };

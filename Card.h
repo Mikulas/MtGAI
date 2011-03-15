@@ -28,6 +28,8 @@ public:
 	vector<string> supertypes;
 	vector<string> types;
 	vector<string> subtypes;
+	bool tapped;
+	bool isUntappable;
 	
 	Card(string = "");
 

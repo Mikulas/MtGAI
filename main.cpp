@@ -13,18 +13,19 @@ int main (int argc, char * const argv[])
 
 	//Database::buildCache();
 	Database db = Database();
-	
 	Game game = Game();
+
 	string deck[] = {"Abandoned Outpost", "Disenchant", "Plains", "Plains", "Island"};
 	for (int i = 0; i < sizeof(deck) / sizeof(string); i++) {
 		game.players[0].library.addCard(db.get(deck[i]));
+		game.players[1].library.addCard(db.get(deck[i]));
 	}
-	
-	game.players[0].print();
 	game.players[0].library.shuffle();
-	game.players[0].print();
-	game.players[0].draw();
-	game.players[0].print();
+	game.players[1].library.shuffle();
+
+	game.play();
+
+	
 	
 	getchar();
 	getchar();

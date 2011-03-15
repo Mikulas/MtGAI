@@ -8,6 +8,13 @@ Player::Player()
 	this->graveyard = PublicZone();
 	this->exile = PublicZone();
 	this->command = PublicZone();*/
+	this->passed = false;
+	this->canDraw = true;
+}
+
+void Player::play()
+{
+	/* play or set passed to true*/
 }
 
 void Player::draw()

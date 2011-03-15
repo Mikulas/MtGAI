@@ -68,20 +68,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardContainer.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameStack.cpp" />
     <ClCompile Include="Library.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Callback.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardContainer.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameStack.h" />
     <ClInclude Include="HiddenZone.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Hand.h" />
