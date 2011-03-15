@@ -15,7 +15,7 @@ int main (int argc, char * const argv[])
 	Database db = Database();
 	Game game = Game();
 
-	string deck[] = {"Abandoned Outpost", "Abandoned Outpost", "Abandoned Outpost", "Disenchant", "Disenchant", "Disenchant", "Plains", "Plains", "Island"};
+	string deck[] = {"Abandoned Outpost", "Abandoned Outpost", "Abandoned Outpost", "Disenchant", "Disenchant", "Disenchant", "Plains", "Plains", "Island", "Aven Brigadier", "Aven Brigadier", "Aven Brigadier", "Aven Brigadier"};
 	for (int i = 0; i < sizeof(deck) / sizeof(string); i++) {
 		game.players[0].library.addCard(db.get(deck[i]));
 		game.players[1].library.addCard(db.get(deck[i]));

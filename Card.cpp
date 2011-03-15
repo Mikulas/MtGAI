@@ -4,8 +4,17 @@ using namespace std;
 
 int Card::id_next = 1;
 
+void toLowerCase(string &str)
+{
+	for(unsigned int i = 0; i < str.length(); ++i)
+	{
+		str[i] = tolower(str[i]);
+	}
+}
+
 bool Card::validateSupertype(string supertype)
 {
+	toLowerCase(supertype);
 	string supertypes [] = {"basic", "legendary", "ongoing", "snow", "world"};
 	for (unsigned int i = 0; i < sizeof(supertypes) / sizeof(string); i++) {
 		if (supertypes[i] == supertype)
@@ -16,6 +25,7 @@ bool Card::validateSupertype(string supertype)
 
 bool Card::validateType(string type)
 {
+	toLowerCase(type);
 	string types [] = {"artifact", "creature", "enchantment", "instant", "land", "plane", "planeswalker", "scheme", "sorcery", "tribal", "vanguard"};
 	for (unsigned int i = 0; i < sizeof(types) / sizeof(string); i++) {
 		if (types[i] == type)
@@ -26,12 +36,13 @@ bool Card::validateType(string type)
 
 bool Card::validateSubtype(string subtype, vector<string> types)
 {
-	string artifact [] = {"Contraption", "Equipment", "Fortification"};
-	string enchantement [] = {"Aura", "Shrine"};
-	string land [] = {"Desert", "Forest", "Island", "Lair", "Locus", "Mine", "Mountain", "Plains", "Power-Plant", "Swamp", "Tower", "Urza’s"};
-	string planeswalker [] = {"Ajani", "Bolas", "Chandra", "Elspeth", "Garruk", "Gideon", "Jace", "Koth", "Liliana", "Nissa", "Sarkhan", "Sorin", "Tezzeret", "Venser"};
-	string spell [] = {"Arcane", "Trap"};
-	string creature [] = {"Advisor", "Ally", "Angel", "Anteater", "Antelope", "Ape", "Archer", "Archon", "Artificer", "Assassin", "Assembly-Worker", "Atog", "Aurochs", "Avatar", "Badger", "Barbarian", "Basilisk", "Bat", "Bear", "Beast", "Beeble", "Berserker", "Bird", "Blinkmoth", "Boar", "Bringer", "Brushwagg", "Camarid", "Camel", "Caribou", "Carrier", "Cat", "Centaur", "Cephalid", "Chimera", "Citizen", "Cleric", "Cockatrice", "Construct", "Coward", "Crab", "Crocodile", "Cyclops", "Dauthi", "Demon", "Deserter", "Devil", "Djinn", "Dragon", "Drake", "Dreadnought", "Drone", "Druid", "Dryad", "Dwarf", "Efreet", "Elder", "Eldrazi", "Elemental", "Elephant", "Elf", "Elk", "Eye", "Faerie", "Ferret", "Fish", "Flagbearer", "Fox", "Frog", "Fungus", "Gargoyle", "Germ", "Giant", "Gnome", "Goat", "Goblin", "Golem", "Gorgon", "Graveborn", "Gremlin", "Griffin", "Hag", "Harpy", "Hellion", "Hippo", "Hippogriff", "Homarid", "Homunculus", "Horror", "Horse", "Hound", "Human", "Hydra", "Hyena", "Illusion", "Imp", "Incarnation", "Insect", "Jellyfish", "Juggernaut", "Kavu", "Kirin", "Kithkin", "Knight", "Kobold", "Kor", "Kraken", "Lammasu", "Leech", "Leviathan", "Lhurgoyf", "Licid", "Lizard", "Manticore", "Masticore", "Mercenary", "Merfolk", "Metathran", "Minion", "Minotaur", "Monger", "Mongoose", "Monk", "Moonfolk", "Mutant", "Myr", "Mystic", "Nautilus", "Nephilim", "Nightmare", "Nightstalker", "Ninja", "Noggle", "Nomad", "Octopus", "Ogre", "Ooze", "Orb", "Orc", "Orgg", "Ouphe", "Ox", "Oyster", "Pegasus", "Pentavite", "Pest", "Phelddagrif", "Phoenix", "Pincher", "Pirate", "Plant", "Prism", "Rabbit", "Rat", "Rebel", "Reflection", "Rhino", "Rigger", "Rogue", "Salamander", "Samurai", "Sand", "Saproling", "Satyr", "Scarecrow", "Scorpion", "Scout", "Serf", "Serpent", "Shade", "Shaman", "Shapeshifter", "Sheep", "Siren", "Skeleton", "Slith", "Sliver", "Slug", "Snake", "Soldier", "Soltari", "Spawn", "Specter", "Spellshaper", "Sphinx", "Spider", "Spike", "Spirit", "Splinter", "Sponge", "Squid", "Squirrel", "Starfish", "Surrakar", "Survivor", "Tetravite", "Thalakos", "Thopter", "Thrull", "Treefolk", "Triskelavite", "Troll", "Turtle", "Unicorn", "Vampire", "Vedalken", "Viashino", "Volver", "Wall", "Warrior", "Weird", "Whale", "Wizard", "Wolf", "Wolverine", "Wombat", "Worm", "Wraith", "Wurm", "Yeti", "Zombie", "Zubera"};
+	toLowerCase(subtype);
+	string artifact [] = {"contraption", "equipment", "fortification"};
+	string enchantement [] = {"aura", "shrine"};
+	string land [] = {"desert", "forest", "island", "lair", "locus", "mine", "mountain", "plains", "power-plant", "swamp", "tower", "urza’s"};
+	string planeswalker [] = {"ajani", "bolas", "chandra", "elspeth", "garruk", "gideon", "jace", "koth", "liliana", "nissa", "sarkhan", "sorin", "tezzeret", "venser"};
+	string spell [] = {"arcane", "trap"};
+	string creature [] = {"advisor", "ally", "angel", "anteater", "antelope", "ape", "archer", "archon", "artificer", "assassin", "assembly-worker", "atog", "aurochs", "avatar", "badger", "barbarian", "basilisk", "bat", "bear", "beast", "beeble", "berserker", "bird", "blinkmoth", "boar", "bringer", "brushwagg", "camarid", "camel", "caribou", "carrier", "cat", "centaur", "cephalid", "chimera", "citizen", "cleric", "cockatrice", "construct", "coward", "crab", "crocodile", "cyclops", "dauthi", "demon", "deserter", "devil", "djinn", "dragon", "drake", "dreadnought", "drone", "druid", "dryad", "dwarf", "efreet", "elder", "eldrazi", "elemental", "elephant", "elf", "elk", "eye", "faerie", "ferret", "fish", "flagbearer", "fox", "frog", "fungus", "gargoyle", "germ", "giant", "gnome", "goat", "goblin", "golem", "gorgon", "graveborn", "gremlin", "griffin", "hag", "harpy", "hellion", "hippo", "hippogriff", "homarid", "homunculus", "horror", "horse", "hound", "human", "hydra", "hyena", "illusion", "imp", "incarnation", "insect", "jellyfish", "juggernaut", "kavu", "kirin", "kithkin", "knight", "kobold", "kor", "kraken", "lammasu", "leech", "leviathan", "lhurgoyf", "licid", "lizard", "manticore", "masticore", "mercenary", "merfolk", "metathran", "minion", "minotaur", "monger", "mongoose", "monk", "moonfolk", "mutant", "myr", "mystic", "nautilus", "nephilim", "nightmare", "nightstalker", "ninja", "noggle", "nomad", "octopus", "ogre", "ooze", "orb", "orc", "orgg", "ouphe", "ox", "oyster", "pegasus", "pentavite", "pest", "phelddagrif", "phoenix", "pincher", "pirate", "plant", "prism", "rabbit", "rat", "rebel", "reflection", "rhino", "rigger", "rogue", "salamander", "samurai", "sand", "saproling", "satyr", "scarecrow", "scorpion", "scout", "serf", "serpent", "shade", "shaman", "shapeshifter", "sheep", "siren", "skeleton", "slith", "sliver", "slug", "snake", "soldier", "soltari", "spawn", "specter", "spellshaper", "sphinx", "spider", "spike", "spirit", "splinter", "sponge", "squid", "squirrel", "starfish", "surrakar", "survivor", "tetravite", "thalakos", "thopter", "thrull", "treefolk", "triskelavite", "troll", "turtle", "unicorn", "vampire", "vedalken", "viashino", "volver", "wall", "warrior", "weird", "whale", "wizard", "wolf", "wolverine", "wombat", "worm", "wraith", "wurm", "yeti", "zombie", "zubera"};
 
 	for (vector<string>::iterator it = types.begin(); it != types.end(); ++it) {
 		string type = *it;
@@ -75,6 +86,7 @@ void Card::setToughness(int toughness)
 
 void Card::addSupertype(string supertype)
 {
+	toLowerCase(supertype);
 	if (!Card::validateSupertype(supertype)) {
 		throw exception("Invalid supertype");
 	}
@@ -92,6 +104,7 @@ void Card::addSupertype(string supertype)
 
 void Card::addType(string type)
 {
+	toLowerCase(type);
 	if (!Card::validateType(type)) {
 		throw exception("Invalid type");
 	}
@@ -109,6 +122,7 @@ void Card::addType(string type)
 
 void Card::addSubtype(string subtype)
 {
+	toLowerCase(subtype);
 	if (this->types.size() == 0) {
 		throw exception("Subtype cannot be set to card without any type");
 	}
@@ -129,6 +143,7 @@ void Card::addSubtype(string subtype)
 
 bool Card::hasSupertype(string supertype)
 {
+	toLowerCase(supertype);
 	for (vector<string>::iterator it = this->supertypes.begin(); it != this->supertypes.end(); ++it) {
 		if (*it == supertype) {
 			return true;
@@ -139,6 +154,7 @@ bool Card::hasSupertype(string supertype)
 
 bool Card::hasType(string type)
 {
+	toLowerCase(type);
 	for (vector<string>::iterator it = this->types.begin(); it != this->types.end(); ++it) {
 		if (*it == type) {
 			return true;
@@ -149,6 +165,7 @@ bool Card::hasType(string type)
 
 bool Card::hasSubtype(string subtype)
 {
+	toLowerCase(subtype);
 	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) {
 		if (*it == subtype) {
 			return true;
@@ -199,4 +216,21 @@ void Card::makeUnique()
 {
 	this->id = Card::id_next;
 	Card::id_next++;
+}
+
+bool Card::isInstant()
+{
+	bool hasFlash = false;
+	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
+		if (*it == "Flash") {
+			hasFlash = true;
+			break;
+		}
+	}
+	return hasFlash || this->hasType("instant");
+}
+
+void Card::evalute()
+{
+	
 }

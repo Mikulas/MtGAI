@@ -2,6 +2,7 @@
 
 Game::Game()
 {
+	this->players[0].stack = this->players[1].stack = &this->stack;
 	this->active = 0; // defaults to first player
 	this->priority = -1; // defaults to none
 }
@@ -45,19 +46,23 @@ bool Game::playersPassed()
 	return this->players[0].passed && this->players[1].passed;
 }
 
-void Game::playByPriority()
+void Game::playByPriority(bool mainPhase)
 {
 	this->players[0].passed = this->players[1].passed = false;
 	this->priority = this->active;
 	this->getPriorityPlayer()->callback("receivedPriority");
 	while (!this->playersPassed()) {
-		this->getPriorityPlayer()->play();
-		if (this->getPriorityPlayer()->passed) {
+		if (this->active == this->priority) cout << "priority is on ACTIVE player: ";
+		else cout << "priority is on inactive player: ";
+		
+		this->getPriorityPlayer()->play(this->priority == this->active && this->stack.isEmpty() && mainPhase);
+		if (!this->stack.isEmpty() || this->getPriorityPlayer()->passed) { // if land was not played
 			this->switchPriority();
 		}
-		if (this->playersPassed() && !this->stack.isEmpty()) {
+		if (!this->stack.isEmpty() && this->playersPassed()) {
 			this->stack.execute();
 			this->players[0].passed = this->players[1].passed = false;
+			this->priority = this->active;
 		}
 	}
 	this->priority = this->active;
@@ -76,39 +81,37 @@ void Game::turn()
 	Player *active = this->getActivePlayer();
 	Player *opponent = this->getInactivePlayer();
 
-	//beginning
+	cout << "### beginning" << endl;
 	//- untap
 		//phase in and out simultaneously, no stack
 		//optional untap, no stack
 	active->battlefield.foreach([&](Card *card) {
 		card->tapped = card->isUntappable;
 	});
-		//no priority
-	//- upkeep
 		//begin upkeep trigger
 	this->callback("beginUpkeep");
 		//untap trigger
 	this->callback("untap");
 		//active player priority
-	this->playByPriority();
-		
-	//- draw
+	cout << "### beginning - draw" << endl;
+	this->playByPriority(false);
 		//active player draws a card
 	if (active->canDraw)
 		active->draw();
 		//begin draw trigger
-	
+	cout << "### beginning - upkeep" << endl;
 	this->callback("draw");
 		//active player priority
-	this->playByPriority();
+	this->playByPriority(false);
 	//
-	//precombat main
+	cout << "### precombat main" << endl;
 	//	begin main phase trigger
 	//	active player priority
 	//	active player can play land, artifact, creature, enchantement, planeswalker, sorcery
 	//	lands do not enter stack
+	this->playByPriority(true);
 	//
-	//combat
+	cout << "### combat" << endl;
 	//- beginning of combat
 	//	
 	//- declare attackers
@@ -116,11 +119,11 @@ void Game::turn()
 	//- combat damage
 	//- end of combat
 	//
-	//postcombat main
+	cout << "### postcombat main" << endl;
 		//active player priority
-	this->playByPriority();
+	this->playByPriority(true);
 	//
-	//ending
+	cout << "### end" << endl;
 	this->callback("cleanup");
 
 }
@@ -139,8 +142,8 @@ void Game::play()
 			cout << "player lost - life depleted" << endl;
 			this->end(this->active == 0 ? 1 : 0);
 		}
-		if (player->poisson >= 10) {
-			cout << "player lost - too much poisson counters" << endl;
+		if (player->poison >= 10) {
+			cout << "player lost - too much poison counters" << endl;
 			this->end(this->active == 0 ? 1 : 0);
 		}
 	});
@@ -151,8 +154,14 @@ void Game::play()
 		}
 	});
 
+
+	for (int i = 0; i < sizeof(this->players) / sizeof(Player); i++) {
+		for (int c = 0; c < 7; c++)
+			this->players[i].draw();
+	}
+
 	while (true) {
-		cout << "Turn of player " << this->active + 1 << endl;
+		cout << "________________\nTurn of player " << this->active + 1 << endl;
 		this->turn();
 		this->active = this->active == 0 ? 1 : 0;
 	}

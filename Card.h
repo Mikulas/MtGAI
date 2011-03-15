@@ -47,6 +47,9 @@ public:
 
 	bool isLimited(); // 4 cards per deck for most cards
 	bool isPermanent();
+	bool isInstant();
+
+	void evalute();
 
 	void print();
 

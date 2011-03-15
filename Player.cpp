@@ -2,23 +2,57 @@
 
 Player::Player()
 {
-	/*this->library = Library();
-	this->hand = Hand();
-	this->battlefield = PublicZone();
-	this->graveyard = PublicZone();
-	this->exile = PublicZone();
-	this->command = PublicZone();*/
 	this->passed = false;
 	this->canDraw = true;
 	this->life = 20;
-	this->poisson = 0;
+	this->poison = 0;
+	this->landDropsLeft = 1;
+	this->emptyManaPool();
 }
 
-void Player::play()
+void Player::emptyManaPool()
 {
-	/* play or set passed to true*/
-	if (rand() % 2 == 0) {
+	for (int i = 0; i < sizeof(this->mana) / sizeof(int); i++) {
+		this->mana[i] = 0;
+	}
+}
+
+void Player::play(bool sorcery)
+{
+	cout << "What card do you want to play?" << endl;
+	int index = 1;
+	cout << "[0] /pass/" << endl;
+	vector<Card> cards;
+	if (sorcery) {
+		this->hand.foreach([&](Card *card) {
+			if (this->landDropsLeft > 0 || !card->hasType("land")) {
+				cards.push_back(*card);
+				cout << "[" << index << "] " << card->name << endl;
+				index++;
+			}
+		});
+	} else {
+		this->hand.foreach([&](Card *card) {
+			if (card->isInstant()) {
+				cards.push_back(*card);
+				cout << "[" << index << "] " << card->name << endl;
+				index++;
+			}
+		});
+	}
+	int choice = 0;
+	scanf("%d", &choice);
+	if (choice == 0) {
+		cout << "passed" << endl;
 		this->passed = true;
+	} else {
+		Card card = cards[choice - 1];
+		if (card.hasType("land")) {
+			this->landDropsLeft--;
+			this->hand.move(card, this->battlefield); // Lands do not stack
+		} else {
+			this->hand.move(card, *this->stack);
+		}
 	}
 }
 

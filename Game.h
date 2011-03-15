@@ -24,7 +24,7 @@ public:
 	void registerCallbackPlayers(string, function<void()>);
 
 	void switchPriority();
-	void playByPriority();
+	void playByPriority(bool);
 	bool playersPassed();
 
 	void turn();
