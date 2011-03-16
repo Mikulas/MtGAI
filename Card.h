@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <regex>
 
 using namespace std;
 
@@ -49,6 +50,8 @@ public:
 	bool isPermanent();
 	bool isInstant();
 
+	void printCost();
+	vector<pair<string, string>> permanentAbilities();
 	void evalute();
 
 	void print();

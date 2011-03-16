@@ -234,3 +234,42 @@ void Card::evalute()
 {
 	
 }
+
+vector<pair<string, string>> Card::permanentAbilities()
+{
+	vector<pair<string, string>> abilities;
+	tr1::regex ability = tr1::regex("([^:]+): ([^.]+).");
+	tr1::cmatch res;
+	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
+		if (tr1::regex_match((*it).c_str(), res, ability)) {
+			abilities.push_back(make_pair(res[1], res[2]));
+		}
+	}
+	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) { // basic land handler
+		if (*it == "forrest") {
+			abilities.push_back(make_pair("{T}", "Add {G} to your mana pool"));
+		} else if (*it == "island") {
+			abilities.push_back(make_pair("{T}", "Add {U} to your mana pool"));
+		} else if (*it == "mountain") {
+			abilities.push_back(make_pair("{T}", "Add {R} to your mana pool"));
+		} else if (*it == "plains") {
+			abilities.push_back(make_pair("{T}", "Add {W} to your mana pool"));
+		} else if (*it == "swamp") {
+			abilities.push_back(make_pair("{T}", "Add {B} to your mana pool"));
+		}
+	}
+
+	return abilities;
+}
+
+void Card::printCost()
+{
+	tr1::regex cost = tr1::regex("As an additional cost to cast " + this->name + ", ([^.]*).");
+	tr1::cmatch res;
+	cout << this->mana_cost;
+	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
+		if (tr1::regex_match((*it).c_str(), res, cost)) {
+			cout << ", " << res[1];
+		}
+	}
+}

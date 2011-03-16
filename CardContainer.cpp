@@ -23,10 +23,10 @@ void CardContainer::foreach(const function<void(Card*)> callback)
 	for_each(this->cards.begin(), this->cards.end(), [callback](Card card) {callback(&card);} );
 }
 
-void CardContainer::move(Card card_moved, CardContainer &container)
+void CardContainer::move(Card card_moved, CardContainer *container)
 {
 	this->cards.erase(remove(this->cards.begin(), this->cards.end(), card_moved), this->cards.end());
-	container.addCard(card_moved);
+	container->addCard(card_moved);
 };
 
 void CardContainer::print()

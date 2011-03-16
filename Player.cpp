@@ -22,12 +22,25 @@ void Player::play(bool sorcery)
 	cout << "What card do you want to play?" << endl;
 	int index = 1;
 	cout << "[0] /pass/" << endl;
+
 	vector<Card> cards;
+	int abilities_size = 0;
+	for (vector<Card>::iterator it = this->battlefield.cards.begin(); it != this->battlefield.cards.end(); ++it) {
+		Card card = *it;
+		vector<pair<string, string>> ability = card.permanentAbilities();
+		for (vector<pair<string, string>>::iterator it = ability.begin(); it != ability.end(); ++it) {
+			cout << "[" << index << "] " << card.name << " - " << it->first << ": " << it->second << endl;
+			index++;
+			abilities_size++;
+		}
+	};
 	if (sorcery) {
 		this->hand.foreach([&](Card *card) {
 			if (this->landDropsLeft > 0 || !card->hasType("land")) {
 				cards.push_back(*card);
-				cout << "[" << index << "] " << card->name << endl;
+				cout << "[" << index << "] " << card->name << " [";
+				card->printCost();
+				cout << "]" << endl;
 				index++;
 			}
 		});
@@ -35,23 +48,44 @@ void Player::play(bool sorcery)
 		this->hand.foreach([&](Card *card) {
 			if (card->isInstant()) {
 				cards.push_back(*card);
-				cout << "[" << index << "] " << card->name << endl;
+				cout << "[" << index << "] " << card->name << " [";
+				card->printCost();
+				cout << "]" << endl;
 				index++;
 			}
 		});
 	}
-	int choice = 0;
-	scanf("%d", &choice);
+	string buffer;
+	getline(cin, buffer); // intentionally so that \n is treated as 0
+	int choice = atoi(buffer.c_str());
 	if (choice == 0) {
 		cout << "passed" << endl;
 		this->passed = true;
+	} else if (choice <= abilities_size) {
+		int index = 0;
+		for (vector<Card>::iterator it = this->battlefield.cards.begin(); it != this->battlefield.cards.end(); ++it) {
+			Card card = *it;
+			vector<pair<string, string>> ability = card.permanentAbilities();
+			for (vector<pair<string, string>>::iterator it = ability.begin(); it != ability.end(); ++it) {
+				if (index == choice - 1) {
+					cout << card.name << " - " << it->first << ": " << it->second << endl;
+					Effect effect;
+					effect.effect = it->second;
+					EffectContainer effects(this);
+					effects.addEffect(effect);
+					this->stack->addEffect(effects);
+					return;
+				}
+				index++;
+			}
+		};
 	} else {
-		Card card = cards[choice - 1];
+		Card card = cards[choice - abilities_size - 1];
 		if (card.hasType("land")) {
 			this->landDropsLeft--;
-			this->hand.move(card, this->battlefield); // Lands do not stack
+			this->hand.move(card, &this->battlefield); // Lands do not stack
 		} else {
-			this->hand.move(card, *this->stack);
+			this->hand.move(card, this->stack);
 		}
 	}
 }
@@ -59,7 +93,7 @@ void Player::play(bool sorcery)
 void Player::draw()
 {
 	Card card = this->library.cards.back();
-	this->library.move(card, this->hand);
+	this->library.move(card, &this->hand);
 }
 
 void Player::print()

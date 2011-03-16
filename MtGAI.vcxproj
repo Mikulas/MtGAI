@@ -72,6 +72,8 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardContainer.cpp" />
     <ClCompile Include="Database.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EffectContainer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStack.cpp" />
     <ClCompile Include="Library.cpp" />
@@ -84,6 +86,8 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardContainer.h" />
     <ClInclude Include="Database.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="EffectContainer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStack.h" />
     <ClInclude Include="HiddenZone.h" />
@@ -93,7 +97,9 @@
     <ClInclude Include="PublicZone.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\cards.xml" />
+    <None Include="data\cards.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="data\meta.xml" />
     <None Include="data\setinfo.xml" />
   </ItemGroup>

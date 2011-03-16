@@ -18,8 +18,7 @@ public:
 	int life;
 	int poison;
 	int landDropsLeft;
-	// how should I store mana?
-	int mana[10]; // Forest, Island, Mountain, Plains, Swamp, Snow-Forest, Snow-Island, Snow-Mountain, Snow-Plains, Snow-Swamp
+	int mana[11]; // Forest, Island, Mountain, Plains, Swamp, Snow-Forest, Snow-Island, Snow-Mountain, Snow-Plains, Snow-Swamp, Colorless
 
 	Player();
 

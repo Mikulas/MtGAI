@@ -152,6 +152,7 @@ void Game::play()
 			cout << "player has more than 7 cards in hand" << endl;
 			this->getActivePlayer()->hand.discard(this->getActivePlayer()->hand.cards.size() - 7);
 		}
+		this->getActivePlayer()->landDropsLeft = 1;
 	});
 
 
