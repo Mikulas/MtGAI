@@ -5,6 +5,8 @@
 
 // forward declaration
 class Player;
+class Game;
+class GameStack;
 
 class Ability
 {

@@ -65,11 +65,11 @@ void Player::play(bool sorcery)
 			for (vector<pair<string, string>>::iterator it = ability.begin(); it != ability.end(); ++it) {
 				if (index == choice - 1) {
 					//cout << card.name << " - " << it->first << ": " << it->second << endl;
+					Ability ability(&this->game->players[this->id]); // persistent pointer
+					this->game->stack.addAbility(ability);
 					Effect effect;
 					effect.effect = it->second;
-					Ability ability(&this->game->players[this->id]); // persistent pointer
-					ability.addEffect(effect);
-					this->game->stack.addAbility(ability);
+					this->game->stack.abilities.back().addEffect(effect);
 					return;
 				}
 				index++;

@@ -1,5 +1,7 @@
 #include "Ability.h"
 #include "Player.h"
+#include "Game.h"
+#include "GameStack.h"
 
 Ability::Ability(Player* caster)
 {
@@ -8,7 +10,7 @@ Ability::Ability(Player* caster)
 
 void Ability::addEffect(Effect effect)
 {
-	effect.parent = this;
+	effect.parent = &(this->caster->game->stack.abilities.back());
 	this->effects.push_back(effect);
 }
 
