@@ -10,7 +10,8 @@
 		h1 {font-size: 3.4em; margin-bottom: 3px;}
 		h1 .small {font-size: 0.4em;}
 		h1 a {text-decoration: none;}
-		h2 {font-size: 1.5em; float: left; margin: 0em 1em 0em -1em;}
+		h2 {font-size: 1.5em; float: left; margin: 0em 1em 0em -1em; color: #000;}
+		h2 time {color: #2B2;}
 		.description {font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
 		article {margin-top: 5em;}
 		p {line-height: 150%;}
@@ -18,41 +19,25 @@
 		h2 + p {text-indent: 0;}
 		pre {background: #000; color: #fff; padding: 15px;}
 		hr {border: 0; width: 80%; border-bottom: 1px solid #aaa;}
-		.footer {text-align:center; padding-top:30px; font-style: italic;}
+		footer {text-align:center; padding-top:30px; font-style: italic; margin: 100px auto; width: 900px; color: rgba(0, 0, 0, 0.5);}
 	</style>
 </head>
 
 <body>
 	<div id="container">
-		<h1>Magic the Gathering: AI using Genetic Algorithm</h1>
+		<h1>Magic the Gathering:<br> Deck Generator based on Genetic Algorithm</h1>
 		<article>
-			<h2>Friday, <time>2011-03-18</time></h2>
-			<p>Vůl co tě mrkal řadu. Vzorná, říkáš oč svědka prominout, lži jo div troufá oba sedělo. Čí ní kobka žních he sklon zbyl slávy saruky vila pole. O máli tvým to nejmíň, zlo nima všimnout, ně už vědí sulcu turecké rty zná-li. 235 lidé menšík jo pětkrát chodníky hon tě nesmí pral rukou eh mě? Jistě sil o cíp hůř z slz vtlačena seti hm porotám. Ně zádumčivě němž dejvicích mat z zsinalé vy vy mu hm vyhrožovat. Zřejmě kluka, kotě že čubičce, wittia moh tažení ukaž ba o přísahá, cizinec hořet kočího usychala případě. Hm všemi oč poslouchat sníh ba dluhy roste mé pan týče ho ó dvanáctiliberní. Vypravovat špičce zahrabala strkán k bodáky eh trsy oči přijal pacient kupoval včas činely vypadal! Dá čikulí, 77 30 umělo co číčo chodila uraženě doků ostatní napínalo, ony mé vystonal ba ke velkodušné trnouce. Známe si husa via napadlo příčinou, dnes fyzik z nevdala výslech války, zapotřebí u rozvlékalo 1464 z graessnerii. Niť hrd bera bas muk mělkou. Liší portýr kdy hluk 77 81 u indie snesitelný. Stává něj péče pakuju včas baron.</p>
-			<pre>a -> b xor c</pre>
-			<p>Vůl co tě mrkal řadu. Vzorná, říkáš oč svědka prominout, lži jo div troufá oba sedělo. Čí ní kobka žních he sklon zbyl slávy saruky vila pole. O máli tvým to nejmíň, zlo nima všimnout, ně už vědí sulcu turecké rty zná-li. 235 lidé menšík jo pětkrát chodníky hon tě nesmí pral rukou eh mě? Jistě sil o cíp hůř z slz vtlačena seti hm porotám. Ně zádumčivě němž dejvicích mat z zsinalé vy vy mu hm vyhrožovat. Zřejmě kluka, kotě že čubičce, wittia moh tažení ukaž ba o přísahá, cizinec hořet kočího usychala případě. Hm všemi oč poslouchat sníh ba dluhy roste mé pan týče ho ó dvanáctiliberní. Vypravovat špičce zahrabala strkán k bodáky eh trsy oči přijal pacient kupoval včas činely vypadal! Dá čikulí, 77 30 umělo co číčo chodila uraženě doků ostatní napínalo, ony mé vystonal ba ke velkodušné trnouce. Známe si husa via napadlo příčinou, dnes fyzik z nevdala výslech války, zapotřebí u rozvlékalo 1464 z graessnerii. Niť hrd bera bas muk mělkou. Liší portýr kdy hluk 77 81 u indie snesitelný. Stává něj péče pakuju včas baron.</p>
+			<h2>Saturday<time>2011-03-19</time>Babysteps</h2>
+			<p>As of today, I completed the <code>C++</code> scaffold I am going to build on. Most classes are prepared. The Game model maintains the highest flow. It divides the turn to atomic events, triggers callbacks whenever the M10 rules require so and handles priority. Each zone extends the CardContainer model and all but Stack belong to Player. Stack itself is not a traditional zone like the others, since it holds effects (abilities, spells) besides the physical cards. Activated abilities are offered to player, go to stack, but do not evaluate yet. The engine does no require paying spells's cost, because the player has no way to get any mana. First, I must handle effects (such as <i>Add {W} to your mana pool</i>) before I can start working on that. Also, additional rules (such as <i>As an additional cost to play FooCard, sacrifice a creature</i>) will be a damn hard work to do.</p>
+			<h2>Friday<time>2011-03-18</time>Vision</h2>
+			<p>This application will be able to generate deck(s) with the highest win/loose ratio ever. The process itself, as I planned it, is quite straightforward: two computer controlled players will play against each other with random decks (the only limitations are given by MtG rules). After many iterations, the best deck &mdash; the one with the best matchup &mdash; is to be considered to be the best. The implementation itself will not be a piece of cake, however. I've split the development into three phases: 1/ rules enforcement engine, 2/ AI implementation, 3/ AI vs AI game.</p>
 		</article>
-		<article>
-			<h2>Friday, <time>2011-03-18</time></h2>
-			<p>Vůl co tě mrkal řadu. Vzorná, říkáš oč svědka prominout, lži jo div troufá oba sedělo. Čí ní kobka žních he sklon zbyl slávy saruky vila pole. O máli tvým to nejmíň, zlo nima všimnout, ně už vědí sulcu turecké rty zná-li. 235 lidé menšík jo pětkrát chodníky hon tě nesmí pral rukou eh mě? Jistě sil o cíp hůř z slz vtlačena seti hm porotám. Ně zádumčivě němž dejvicích mat z zsinalé vy vy mu hm vyhrožovat. Zřejmě kluka, kotě že čubičce, wittia moh tažení ukaž ba o přísahá, cizinec hořet kočího usychala případě. Hm všemi oč poslouchat sníh ba dluhy roste mé pan týče ho ó dvanáctiliberní. Vypravovat špičce zahrabala strkán k bodáky eh trsy oči přijal pacient kupoval včas činely vypadal! Dá čikulí, 77 30 umělo co číčo chodila uraženě doků ostatní napínalo, ony mé vystonal ba ke velkodušné trnouce. Známe si husa via napadlo příčinou, dnes fyzik z nevdala výslech války, zapotřebí u rozvlékalo 1464 z graessnerii. Niť hrd bera bas muk mělkou. Liší portýr kdy hluk 77 81 u indie snesitelný. Stává něj péče pakuju včas baron.</p>
-		</article>
-		<!-- only if you have proper clearance to access this repository     
-		<div class="description">
-		</div>
-		<h2>Download</h2>
-		<p>
-			You can download this project in either
-			<a href="http://github.com/Mikulas/MtGAI/zipball/master">zip</a> or
-			<a href="http://github.com/Mikulas/MtGAI/tarball/master">tar</a> formats.
-		</p>
-		<p>
-			You can also clone the project with <a href="http://git-scm.com">Git</a>
-			by running:
-			<pre>$ git clone git://github.com/Mikulas/MtGAI</pre>
-		</p>
-		-->
 	</div>
-	<div class="footer">
-		All texts and code published on this site are subjects to copyright &copy; Mikuláš Dítě 2011
-	</div>
+	<footer>
+		This web site is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC. This web site may use the trademarks and other intellectual property of Wizards of the Coast LLC, which is permitted under Wizards.
+		<hr>
+		Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC in the United States and other countries. &copy; 2009 Wizards. All Rights Reserved.
+		All texts and code published on this site that are not aforementioned trademarks are subjects to copyright &copy; Mikuláš Dítě 2011. All Rights Reserved.
+	</footer>
 </body>
 </html>
