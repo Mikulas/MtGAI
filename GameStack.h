@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Card.h"
 #include "PublicZone.h"
 #include "EffectContainer.h"
 

@@ -1,4 +1,5 @@
 #include "EffectContainer.h"
+#include "Player.h"
 
 EffectContainer::EffectContainer(Player* caster)
 {

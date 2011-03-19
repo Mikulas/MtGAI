@@ -285,10 +285,10 @@ vector<string> Card::getCost()
 	return cost;
 }
 
-bool Card::isCastable(/*Player* player*/)
+/*bool Card::isCastable(Player* player)
 {
 	return true;
-	/*tr1::regex rg_cost = tr1::regex("Add (({(1|G|B|R|W|B)})+|one mana of any color) to your mana pool");
+	*//*tr1::regex rg_cost = tr1::regex("Add (({(1|G|B|R|W|B)})+|one mana of any color) to your mana pool");
 	tr1::cmatch res;
 	
 	vector<string> cost = this->getCost();
@@ -296,8 +296,8 @@ bool Card::isCastable(/*Player* player*/)
 		if (tr1::regex_match((*it).c_str(), res, rg_cost) {
 			if (res[1] == "one mana of any color")
 		}
-	}*/
-}
+	}*//*
+}*/
 
 void Card::printCost()
 {

@@ -1,4 +1,6 @@
 #include "Effect.h"
+#include "Player.h"
+#include "EffectContainer.h"
 
 void Effect::setTarget(Player* player)
 {

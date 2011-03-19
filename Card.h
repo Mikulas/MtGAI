@@ -5,7 +5,6 @@
 #include <regex>
 #include <functional>
 #include "Callback.h"
-//#include "Player.h"
 
 using namespace std;
 
@@ -53,7 +52,7 @@ public:
 	bool isPermanent();
 	bool isInstant();
 
-	bool isCastable(/*Player**/);
+	/*bool isCastable(Player*);*/
 	vector<string> getCost();
 	void printCost();
 	vector<pair<string, string>> permanentAbilities();

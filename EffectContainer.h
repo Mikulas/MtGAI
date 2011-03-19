@@ -2,7 +2,9 @@
 #include <vector>
 #include "Effect.h"
 
-class Player; // circular reference
+// forward declaration
+class Player;
+
 class EffectContainer
 {
 public:

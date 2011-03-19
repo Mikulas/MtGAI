@@ -3,8 +3,10 @@
 #include <string>
 #include "Card.h"
 
-class EffectContainer; // circular reference
-class Player; // circular reference
+// forward declarations
+class EffectContainer;
+class Player;
+
 class Effect
 {
 public:

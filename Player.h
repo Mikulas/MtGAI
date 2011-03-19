@@ -4,7 +4,9 @@
 #include "HiddenZone.h"
 #include "Library.h"
 #include "Hand.h"
-#include "GameStack.h"
+
+// forward declaration
+class GameStack;
 
 class Player : public Callback<Player>
 {
