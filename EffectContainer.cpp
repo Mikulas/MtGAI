@@ -7,6 +7,7 @@ EffectContainer::EffectContainer(Player* caster)
 
 void EffectContainer::addEffect(Effect effect)
 {
+	effect.parent = this;
 	this->effects.push_back(effect);
 }
 

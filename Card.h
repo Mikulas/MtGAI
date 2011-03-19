@@ -5,6 +5,7 @@
 #include <regex>
 #include <functional>
 #include "Callback.h"
+//#include "Player.h"
 
 using namespace std;
 
@@ -23,7 +24,7 @@ public:
 	vector<string> rules;
 	string name;
 	string mana_cost;
-	vector<string> color;
+	vector<string> cost;
 	int power;
 	int toughness;
 	int loyalty;
@@ -52,6 +53,8 @@ public:
 	bool isPermanent();
 	bool isInstant();
 
+	bool isCastable(/*Player**/);
+	vector<string> getCost();
 	void printCost();
 	vector<pair<string, string>> permanentAbilities();
 	void evalute();

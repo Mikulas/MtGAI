@@ -3,12 +3,15 @@
 #include <string>
 #include "Card.h"
 
+class EffectContainer; // circular reference
 class Player; // circular reference
 class Effect
 {
 public:
 	string effect;
 
+	EffectContainer *parent;
+	
 	vector<Player*> target_players;
 	vector<Card*> target_cards;
 	vector<Effect*> target_effects;
@@ -19,4 +22,3 @@ public:
 
 	void evalute();
 };
-

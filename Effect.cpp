@@ -17,5 +17,17 @@ void Effect::setTarget(Effect* effect)
 
 void Effect::evalute()
 {
-	cout << "evalutaing effect: " << this->effect << endl;
+
+/*	//Player caster = this->parent->caster;
+	cout << "evaluating effect: " << this->effect << endl;
+	//tr1::regex rg_mana = tr1::regex("Add ((\{[GURWB]\})+|\{(\d+)\}|one mana of any color) to your mana pool");
+	tr1::regex rg_sentence = tr1::regex("Add (.*?) to your mana pool");
+	tr1::regex rg_mana = tr1::regex("\\{[GURWB])+\\}|\\{d+\\}|one mana of any color");
+	tr1::cmatch res;
+	tr1::regex_iterator(this->effect.begin(), this->effect.end(), rg_mana);
+	if (tr1::regex_match(this->effect.c_str(), res, rg_sentence)) {
+		if (res[1] == "one mana of any color") {
+			//cout << "caster property: landdropsleft = " << caster->landDropsLeft << endl;
+		}
+	}*/
 }

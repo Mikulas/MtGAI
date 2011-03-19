@@ -240,7 +240,7 @@ bool Card::isInstant()
 
 void Card::evalute()
 {
-	
+
 }
 
 vector<pair<string, string>> Card::permanentAbilities()
@@ -270,14 +270,39 @@ vector<pair<string, string>> Card::permanentAbilities()
 	return abilities;
 }
 
-void Card::printCost()
+vector<string> Card::getCost()
 {
-	tr1::regex cost = tr1::regex("As an additional cost to cast " + this->name + ", ([^.]*).");
+	vector<string> cost;
+
+	tr1::regex rg_cost = tr1::regex("As an additional cost to cast " + this->name + ", ([^.]*).");
 	tr1::cmatch res;
 	cout << this->mana_cost;
 	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
-		if (tr1::regex_match((*it).c_str(), res, cost)) {
-			cout << ", " << res[1];
+		if (tr1::regex_match((*it).c_str(), res, rg_cost)) {
+			cost.push_back(res[1]);
 		}
+	}
+	return cost;
+}
+
+bool Card::isCastable(/*Player* player*/)
+{
+	return true;
+	/*tr1::regex rg_cost = tr1::regex("Add (({(1|G|B|R|W|B)})+|one mana of any color) to your mana pool");
+	tr1::cmatch res;
+	
+	vector<string> cost = this->getCost();
+	for (vector<string>::iterator it = cost.begin(); it != cost.end(); ++it) {
+		if (tr1::regex_match((*it).c_str(), res, rg_cost) {
+			if (res[1] == "one mana of any color")
+		}
+	}*/
+}
+
+void Card::printCost()
+{
+	vector<string> cost = this->getCost();
+	for (vector<string>::iterator it = cost.begin(); it != cost.end(); ++it) {
+		cout << ", " << *it;
 	}
 }

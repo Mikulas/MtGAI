@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class Card;
+
 class CardContainer
 {
 public:
