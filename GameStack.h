@@ -2,16 +2,16 @@
 #include <vector>
 #include "Card.h"
 #include "PublicZone.h"
-#include "EffectContainer.h"
+#include "Ability.h"
 
 class GameStack : public PublicZone
 {
 public:
-	vector<EffectContainer> effects;
+	vector<Ability> abilities;
 	vector<int> queue;
 	bool isEmpty();
 
 	void addCard(Card);
-	void addEffect(EffectContainer);
+	void addAbility(Ability);
 	void execute();
 };

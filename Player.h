@@ -4,14 +4,18 @@
 #include "HiddenZone.h"
 #include "Library.h"
 #include "Hand.h"
+#include "Effect.h"
+#include "Ability.h"
+#include "ManaIndex.h"
 
 // forward declaration
-class GameStack;
+class Game;
 
 class Player : public Callback<Player>
 {
 public:
-	GameStack* stack;
+	int id;
+	Game* game;
 	PublicZone battlefield, graveyard, exile, command;
 	Library library;
 	Hand hand;
@@ -20,9 +24,11 @@ public:
 	int life;
 	int poison;
 	int landDropsLeft;
-	int mana[11]; // Forest, Island, Mountain, Plains, Swamp, Snow-Forest, Snow-Island, Snow-Mountain, Snow-Plains, Snow-Swamp, Colorless
+	int mana[11];
 
 	Player();
+
+	void setMana(Mana, int);
 
 	void emptyManaPool();
 	void play(bool);

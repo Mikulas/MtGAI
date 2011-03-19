@@ -1,6 +1,6 @@
 #include "Effect.h"
 #include "Player.h"
-#include "EffectContainer.h"
+#include "Ability.h"
 
 void Effect::setTarget(Player* player)
 {
@@ -19,17 +19,39 @@ void Effect::setTarget(Effect* effect)
 
 void Effect::evalute()
 {
-
-/*	//Player caster = this->parent->caster;
+	Player* caster = this->parent->caster;
 	cout << "evaluating effect: " << this->effect << endl;
-	//tr1::regex rg_mana = tr1::regex("Add ((\{[GURWB]\})+|\{(\d+)\}|one mana of any color) to your mana pool");
+	
 	tr1::regex rg_sentence = tr1::regex("Add (.*?) to your mana pool");
-	tr1::regex rg_mana = tr1::regex("\\{[GURWB])+\\}|\\{d+\\}|one mana of any color");
+	tr1::regex rg_mana = tr1::regex("\\{[GURWB]\\}|\\{\\d+\\}|one mana of any color");
 	tr1::cmatch res;
-	tr1::regex_iterator(this->effect.begin(), this->effect.end(), rg_mana);
+	const tr1::sregex_token_iterator end;
 	if (tr1::regex_match(this->effect.c_str(), res, rg_sentence)) {
-		if (res[1] == "one mana of any color") {
-			//cout << "caster property: landdropsleft = " << caster->landDropsLeft << endl;
+		string match(res[1]);
+		for (tr1::sregex_token_iterator it(match.begin(), match.end(), rg_mana); it != end; it++) {
+			cout << "it = " << *it << endl;
+			// 0		1		2		3			4		5			6			7				8				9		10
+			// Forest, Island, Mountain, Plains, Swamp, Snow-Forest, Snow-Island, Snow-Mountain, Snow-Plains, Snow-Swamp, Colorless	
+			if (res[1] == "one mana of any color") {
+				cout << "mana of what color do you want to add to your mana pool?" << endl;
+				/** @todo implement */
+			} else if (res[1] == "{G}") {
+				caster->setMana(Forest, 1);
+			} else if (res[1] == "{U}") {
+				caster->setMana(Island, 1);
+			} else if (res[1] == "{R}") {
+				caster->setMana(Mountain, 1);
+			} else if (res[1] == "{W}") {
+				caster->setMana(Plains, 1);
+			} else if (res[1] == "{B}") {
+				caster->setMana(Swamp, 1);
+			} else {
+				tr1::regex rg_colorless("\\{(\\d+)\\}");
+				tr1::cmatch amount;
+				tr1::regex_match(string(res[1]).c_str(), amount, rg_colorless);
+				caster->setMana(Colorless, atoi(string(amount[1]).c_str()));
+			}
 		}
-	}*/
+	}
+	caster->print();
 }

@@ -1,18 +1,18 @@
-#include "EffectContainer.h"
+#include "Ability.h"
 #include "Player.h"
 
-EffectContainer::EffectContainer(Player* caster)
+Ability::Ability(Player* caster)
 {
 	this->caster = caster;
 }
 
-void EffectContainer::addEffect(Effect effect)
+void Ability::addEffect(Effect effect)
 {
 	effect.parent = this;
 	this->effects.push_back(effect);
 }
 
-void EffectContainer::evalute()
+void Ability::evalute()
 {
 	for (vector<Effect>::iterator it = this->effects.begin(); it != this->effects.end(); ++it) {
 		it->evalute();

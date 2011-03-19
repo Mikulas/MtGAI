@@ -2,9 +2,10 @@
 
 Game::Game()
 {
-	this->players[0].stack = this->players[1].stack = &this->stack;
-	this->active = 0; // defaults to first player
-	this->priority = this->active;
+	this->players[0].id = 0;
+	this->players[1].id = 1;
+	this->players[0].game = this->players[1].game = this;
+	this->priority = this->active = 0; // defaults to first player
 }
 
 Player* Game::getPriorityPlayer()
@@ -83,14 +84,16 @@ void Game::turn()
 		//active player priority
 	cout << "### beginning - draw" << endl;
 	this->playByPriority(false);
+	this->callback("nextPhase", this);
 		//active player draws a card
-	if (active->canDraw)
+	if (active->canDraw) /** @todo onplay must not draw a card! */
 		active->draw();
 		//begin draw trigger
 	cout << "### beginning - upkeep" << endl;
 	this->callback("draw", this);
 		//active player priority
 	this->playByPriority(false);
+	this->callback("nextPhase", this);
 	//
 	cout << "### precombat main" << endl;
 	//	begin main phase trigger
@@ -98,6 +101,7 @@ void Game::turn()
 	//	active player can play land, artifact, creature, enchantement, planeswalker, sorcery
 	//	lands do not enter stack
 	this->playByPriority(true);
+	this->callback("nextPhase", this);
 	//
 	cout << "### combat" << endl;
 	//- beginning of combat
@@ -110,19 +114,18 @@ void Game::turn()
 	cout << "### postcombat main" << endl;
 		//active player priority
 	this->playByPriority(true);
+	callback("nextPhase", this);
 	//
 	cout << "### end" << endl;
+	this->callback("nextPhase", this);
 	this->callback("cleanup", this);
-
 }
 
 void Game::play()
 {
 	bool playing = true;
-
 	for (int i = 0; i < sizeof(this->players) / sizeof(Player); i++) {
 		this->players[i].registerCallback("receivedPriority", [&](Player* player){
-			//Player* player = this->getPriorityPlayer();
 			if (player->library.cards.size() == 0) {
 				cout << "player lost - no more cards in the deck" << endl;
 				this->end(this->active == 0 ? 1 : 0);
@@ -137,17 +140,24 @@ void Game::play()
 			}
 		});
 	}
-	this->registerCallback("cleanup", [&](Game* game){
+	this->registerCallback("cleanup", [&](Game* game) {
 		if (this->getActivePlayer()->hand.cards.size() > 7) { // only active player has to discard
 			cout << "player has more than 7 cards in hand" << endl;
 			this->getActivePlayer()->hand.discard(this->getActivePlayer()->hand.cards.size() - 7);
 		}
 		this->getActivePlayer()->landDropsLeft = 1;
 	});
-
+	this->registerCallback("nextPhase", [&](Game* game) {
+		for (int i = 0; i < sizeof(this->players) / sizeof(Player); i++) {
+			this->players[i].emptyManaPool();
+		}
+	});
+	
+	
 	for (int i = 0; i < sizeof(this->players) / sizeof(Player); i++) {
-		for (int c = 0; c < 7; c++)
+		for (int c = 0; c < 7; c++) {
 			this->players[i].draw();
+		}
 	}
 
 	while (true) {

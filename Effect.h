@@ -2,9 +2,10 @@
 #include <vector>
 #include <string>
 #include "Card.h"
+#include "ManaIndex.h"
 
 // forward declarations
-class EffectContainer;
+class Ability;
 class Player;
 
 class Effect
@@ -12,7 +13,7 @@ class Effect
 public:
 	string effect;
 
-	EffectContainer *parent;
+	Ability *parent;
 	
 	vector<Player*> target_players;
 	vector<Card*> target_cards;

@@ -70,9 +70,10 @@
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardContainer.cpp" />
+    <ClCompile Include="Castable.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Effect.cpp" />
-    <ClCompile Include="EffectContainer.cpp" />
+    <ClCompile Include="Ability.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameStack.cpp" />
     <ClCompile Include="Library.cpp" />
@@ -84,14 +85,16 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardContainer.h" />
+    <ClInclude Include="Castable.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Effect.h" />
-    <ClInclude Include="EffectContainer.h" />
+    <ClInclude Include="Ability.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameStack.h" />
     <ClInclude Include="HiddenZone.h" />
     <ClInclude Include="Library.h" />
     <ClInclude Include="Hand.h" />
+    <ClInclude Include="ManaIndex.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PublicZone.h" />
   </ItemGroup>

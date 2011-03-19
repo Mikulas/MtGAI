@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "GameStack.h"
+#include "Game.h"
 
 Player::Player()
 {
@@ -9,6 +9,12 @@ Player::Player()
 	this->poison = 0;
 	this->landDropsLeft = 1;
 	this->emptyManaPool();
+}
+
+void Player::setMana(Mana index, int value)
+{
+	this->mana[index] += value;
+	this->mana[index] = this->mana[index] < 0 ? 0 : this->mana[index];
 }
 
 void Player::emptyManaPool()
@@ -35,27 +41,16 @@ void Player::play(bool sorcery)
 			abilities_size++;
 		}
 	};
-	if (sorcery) {
-		this->hand.foreach([&](Card *card) {
-			if (this->landDropsLeft > 0 || !card->hasType("land")) {
-				cards.push_back(*card);
-				cout << "  [" << index << "] " << card->name << " [";
-				card->printCost();
-				cout << "]" << endl;
-				index++;
-			}
-		});
-	} else {
-		this->hand.foreach([&](Card *card) {
-			if (card->isInstant()) {
-				cards.push_back(*card);
-				cout << "  [" << index << "] " << card->name << " [";
-				card->printCost();
-				cout << "]" << endl;
-				index++;
-			}
-		});
-	}
+	this->hand.foreach([&](Card *card) {
+		if ((!sorcery && card->isInstant()) || (sorcery && (this->landDropsLeft > 0 || !card->hasType("land")))) {
+			cards.push_back(*card);
+			cout << "  [" << index << " " << (card->isCastable(this) ? "y" : "n") << "] " << card->name << " [";
+			card->printCost();
+			cout << "]" << endl;
+			index++;
+		}
+	});
+
 	string buffer;
 	getline(cin, buffer); // intentionally so that \n is treated as 0
 	int choice = atoi(buffer.c_str());
@@ -72,9 +67,9 @@ void Player::play(bool sorcery)
 					//cout << card.name << " - " << it->first << ": " << it->second << endl;
 					Effect effect;
 					effect.effect = it->second;
-					EffectContainer effects(this);
-					effects.addEffect(effect);
-					this->stack->addEffect(effects);
+					Ability ability(&this->game->players[this->id]); // persistent pointer
+					ability.addEffect(effect);
+					this->game->stack.addAbility(ability);
 					return;
 				}
 				index++;
@@ -87,7 +82,7 @@ void Player::play(bool sorcery)
 			this->hand.move(card, &this->battlefield); // Lands do not stack
 			//this->battlefield.cards.back().callback("enterBattlefield", &(this->battlefield.cards.back()));
 		} else {
-			this->hand.move(card, this->stack);
+			this->hand.move(card, &this->game->stack);
 		}
 	}
 }
@@ -112,4 +107,9 @@ void Player::print()
 	this->exile.print();
 	cout << "command:\n";
 	this->command.print();
+	cout << "mana: ";
+	for (int i = 0; i < sizeof(this->mana) / sizeof(int); i++) {
+		cout << this->mana[i] << ", ";
+	}
+	cout << endl;
 }

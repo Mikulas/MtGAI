@@ -5,10 +5,13 @@
 #include <regex>
 #include <functional>
 #include "Callback.h"
+#include "Castable.h"
+
+class Player;
 
 using namespace std;
 
-class Card : public Callback<Card>
+class Card : public Callback<Card>, public Castable
 {
 private:
 	static int id_next;
@@ -52,7 +55,6 @@ public:
 	bool isPermanent();
 	bool isInstant();
 
-	/*bool isCastable(Player*);*/
 	vector<string> getCost();
 	void printCost();
 	vector<pair<string, string>> permanentAbilities();

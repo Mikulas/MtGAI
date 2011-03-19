@@ -6,9 +6,9 @@ void GameStack::addCard(Card card)
 	this->queue.push_back(0);
 }
 
-void GameStack::addEffect(EffectContainer effects)
+void GameStack::addAbility(Ability ability)
 {
-	this->effects.push_back(effects);
+	this->abilities.push_back(ability);
 	this->queue.push_back(1);
 }
 
@@ -26,9 +26,9 @@ void GameStack::execute()
 			this->cards.back().evalute();
 			//this->cards.pop_back(); // move maintained by evalute
 		} else {
-			cout << "\teffect container on stack" << endl;
-			this->effects.back().evalute();
-			this->effects.pop_back();
+			cout << "\tability container on stack" << endl;
+			this->abilities.back().evalute();
+			this->abilities.pop_back();
 		}
 		this->queue.pop_back();
 	}
