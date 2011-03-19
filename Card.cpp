@@ -71,6 +71,14 @@ Card::Card(string name)
 
 void Card::addRule(string rule)
 {
+	tr1::regex rg_enters = tr1::regex(this->name + " enters the battlefield ([^.]+).");
+	tr1::cmatch res;
+	if (regex_match(rule.c_str(), res, rg_enters) && res[1] == "tapped") {
+		this->registerCallback("enterBattlefield", [this](Card* card) {
+			cout << this->name << " enters the battlefield tapped" << endl;
+			this->tapped = true;
+		});
+	}
 	this->rules.push_back(rule);
 }
 

@@ -1,11 +1,10 @@
 #include "Callback.h"
-
-void Callback::registerCallback(string name, function<void()> callback)
+/*
+template<typename T>
+void Callback<T>::registerCallback(string name, Function callback)
 {
-	//this->foreach([&](Card *card){cout << "\t" << card->name << endl;});
 	bool found = false;
-	for (vector< pair<string, vector<function<void()>> > >::iterator it = this->callbacks.begin(); it != this->callbacks.end(); ++it) {
-
+	for (CallbackContainer::iterator it = this->callbacks.begin(); it != this->callbacks.end(); ++it) {
 		if ((*it).first == name) {
 			(*it).second.push_back(callback);
 			found = true;
@@ -13,22 +12,22 @@ void Callback::registerCallback(string name, function<void()> callback)
 		}
 	}
 	if (!found) {
-		vector<pair<string, vector<function<void()>> > > row;
-		vector<function<void()>> callbacks;
+		vector<Function> callbacks;
 		callbacks.push_back(callback);
 		this->callbacks.push_back(make_pair(name, callbacks));
 	}
 }
 
-void Callback::callback(string name)
+template<typename T>
+void Callback<T>::callback(string name, T* argument)
 {
-	for (vector<pair<string, vector<function<void()>> > >::iterator it = this->callbacks.begin(); it != this->callbacks.end(); ++it) {
+	for (CallbackContainer::iterator it = this->callbacks.begin(); it != this->callbacks.end(); ++it) {
 		if ((*it).first == name) {
-			for (vector<function<void()>>::iterator cb = (*it).second.begin(); cb != (*it).second.end(); ++cb) {
-				function<void()> callback = *cb;
-				callback();
+			for (vector<Function>::iterator cb = (*it).second.begin(); cb != (*it).second.end(); ++cb) {
+				Function callback = *cb;
+				callback(argument);
 			}
 			return;
 		}
 	}
-}
+}*/

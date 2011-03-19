@@ -6,7 +6,7 @@
 #include "Hand.h"
 #include "GameStack.h"
 
-class Player : public Callback
+class Player : public Callback<Player>
 {
 public:
 	GameStack* stack;

@@ -68,7 +68,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Callback.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardContainer.cpp" />
     <ClCompile Include="Database.cpp" />

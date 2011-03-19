@@ -21,7 +21,7 @@ void Player::play(bool sorcery)
 {
 	cout << "What card do you want to play?" << endl;
 	int index = 1;
-	cout << "[0] /pass/" << endl;
+	cout << "  [0] /pass/" << endl;
 
 	vector<Card> cards;
 	int abilities_size = 0;
@@ -29,7 +29,7 @@ void Player::play(bool sorcery)
 		Card card = *it;
 		vector<pair<string, string>> ability = card.permanentAbilities();
 		for (vector<pair<string, string>>::iterator it = ability.begin(); it != ability.end(); ++it) {
-			cout << "[" << index << "] " << card.name << " - " << it->first << ": " << it->second << endl;
+			cout << "  [" << index << "] " << card.name << " - " << it->first << ": " << it->second << endl;
 			index++;
 			abilities_size++;
 		}
@@ -38,7 +38,7 @@ void Player::play(bool sorcery)
 		this->hand.foreach([&](Card *card) {
 			if (this->landDropsLeft > 0 || !card->hasType("land")) {
 				cards.push_back(*card);
-				cout << "[" << index << "] " << card->name << " [";
+				cout << "  [" << index << "] " << card->name << " [";
 				card->printCost();
 				cout << "]" << endl;
 				index++;
@@ -48,7 +48,7 @@ void Player::play(bool sorcery)
 		this->hand.foreach([&](Card *card) {
 			if (card->isInstant()) {
 				cards.push_back(*card);
-				cout << "[" << index << "] " << card->name << " [";
+				cout << "  [" << index << "] " << card->name << " [";
 				card->printCost();
 				cout << "]" << endl;
 				index++;
@@ -68,7 +68,7 @@ void Player::play(bool sorcery)
 			vector<pair<string, string>> ability = card.permanentAbilities();
 			for (vector<pair<string, string>>::iterator it = ability.begin(); it != ability.end(); ++it) {
 				if (index == choice - 1) {
-					cout << card.name << " - " << it->first << ": " << it->second << endl;
+					//cout << card.name << " - " << it->first << ": " << it->second << endl;
 					Effect effect;
 					effect.effect = it->second;
 					EffectContainer effects(this);
@@ -84,6 +84,7 @@ void Player::play(bool sorcery)
 		if (card.hasType("land")) {
 			this->landDropsLeft--;
 			this->hand.move(card, &this->battlefield); // Lands do not stack
+			//this->battlefield.cards.back().callback("enterBattlefield", &(this->battlefield.cards.back()));
 		} else {
 			this->hand.move(card, this->stack);
 		}

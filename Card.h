@@ -3,10 +3,12 @@
 #include <iostream>
 #include <vector>
 #include <regex>
+#include <functional>
+#include "Callback.h"
 
 using namespace std;
 
-class Card
+class Card : public Callback<Card>
 {
 private:
 	static int id_next;

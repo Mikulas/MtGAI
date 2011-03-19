@@ -20,16 +20,17 @@ bool GameStack::isEmpty()
 void GameStack::execute()
 {
 	cout << "EVALUATING STACK:" << endl;
-	int card_index = this->cards.size() - 1;
-	int effect_index = this->effects.size() - 1;
-	for (int i = this->queue.size() - 1; i >= 0; i--) {
-		if (this->queue[i] == 0) {
-			cout << "\tcard on stack" << this->cards[card_index].name << endl;
-			card_index--;
+	while (!this->queue.empty()) {
+		if (this->queue.back() == 0) {
+			cout << "\tcard on stack" << endl;
+			this->cards.back().evalute();
+			//this->cards.pop_back(); // move maintained by evalute
 		} else {
-			cout << "\teffect contaienr on stack" << endl;
-			effect_index--;
+			cout << "\teffect container on stack" << endl;
+			this->effects.back().evalute();
+			this->effects.pop_back();
 		}
+		this->queue.pop_back();
 	}
 	cout << "stack evaluated" << endl << endl;
 }

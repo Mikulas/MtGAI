@@ -4,14 +4,11 @@ Game::Game()
 {
 	this->players[0].stack = this->players[1].stack = &this->stack;
 	this->active = 0; // defaults to first player
-	this->priority = -1; // defaults to none
+	this->priority = this->active;
 }
 
 Player* Game::getPriorityPlayer()
 {
-	if (this->priority == -1) {
-		throw exception("No player has priority");
-	}
 	return &this->players[this->priority];
 }
 
@@ -26,19 +23,10 @@ Player* Game::getInactivePlayer()
 	return &this->players[this->active == 0 ? 1 : 0];
 }
 
-void Game::registerCallbackPlayers(string name, function<void()> callback)
-{
-	this->players[0].registerCallback(name, callback);
-	this->players[1].registerCallback(name, callback);
-}
-
 void Game::switchPriority()
 {
-	if (this->priority == -1) {
-		throw exception("No player has priority");
-	}
 	this->priority = this->priority == 0 ? 1 : 0;
-	this->getPriorityPlayer()->callback("receivedPriority");
+	this->getPriorityPlayer()->callback("receivedPriority", this->getPriorityPlayer());
 }
 
 bool Game::playersPassed()
@@ -50,10 +38,10 @@ void Game::playByPriority(bool mainPhase)
 {
 	this->players[0].passed = this->players[1].passed = false;
 	this->priority = this->active;
-	this->getPriorityPlayer()->callback("receivedPriority");
+	this->getPriorityPlayer()->callback("receivedPriority", this->getPriorityPlayer());
 	while (!this->playersPassed()) {
-		if (this->active == this->priority) cout << "priority is on ACTIVE player: ";
-		else cout << "priority is on inactive player: ";
+		if (this->active == this->priority) cout << "* priority is on active player: ";
+		else cout << "* priority is on inactive player: ";
 		
 		this->getPriorityPlayer()->play(this->priority == this->active && this->stack.isEmpty() && mainPhase);
 		if (!this->stack.isEmpty() || this->getPriorityPlayer()->passed) { // if land was not played
@@ -89,9 +77,9 @@ void Game::turn()
 		card->tapped = card->isUntappable;
 	});
 		//begin upkeep trigger
-	this->callback("beginUpkeep");
+	this->callback("beginUpkeep", this);
 		//untap trigger
-	this->callback("untap");
+	this->callback("untap", this);
 		//active player priority
 	cout << "### beginning - draw" << endl;
 	this->playByPriority(false);
@@ -100,7 +88,7 @@ void Game::turn()
 		active->draw();
 		//begin draw trigger
 	cout << "### beginning - upkeep" << endl;
-	this->callback("draw");
+	this->callback("draw", this);
 		//active player priority
 	this->playByPriority(false);
 	//
@@ -124,7 +112,7 @@ void Game::turn()
 	this->playByPriority(true);
 	//
 	cout << "### end" << endl;
-	this->callback("cleanup");
+	this->callback("cleanup", this);
 
 }
 
@@ -132,22 +120,24 @@ void Game::play()
 {
 	bool playing = true;
 
-	this->registerCallbackPlayers("receivedPriority", [&](){
-		Player* player = this->getPriorityPlayer();
-		if (player->library.cards.size() == 0) {
-			cout << "player lost - no more cards in the deck" << endl;
-			this->end(this->active == 0 ? 1 : 0);
-		}
-		if (player->life <= 0) {
-			cout << "player lost - life depleted" << endl;
-			this->end(this->active == 0 ? 1 : 0);
-		}
-		if (player->poison >= 10) {
-			cout << "player lost - too much poison counters" << endl;
-			this->end(this->active == 0 ? 1 : 0);
-		}
-	});
-	this->registerCallback("cleanup", [&](){
+	for (int i = 0; i < sizeof(this->players) / sizeof(Player); i++) {
+		this->players[i].registerCallback("receivedPriority", [&](Player* player){
+			//Player* player = this->getPriorityPlayer();
+			if (player->library.cards.size() == 0) {
+				cout << "player lost - no more cards in the deck" << endl;
+				this->end(this->active == 0 ? 1 : 0);
+			}
+			if (player->life <= 0) {
+				cout << "player lost - life depleted" << endl;
+				this->end(this->active == 0 ? 1 : 0);
+			}
+			if (player->poison >= 10) {
+				cout << "player lost - too much poison counters" << endl;
+				this->end(this->active == 0 ? 1 : 0);
+			}
+		});
+	}
+	this->registerCallback("cleanup", [&](Game* game){
 		if (this->getActivePlayer()->hand.cards.size() > 7) { // only active player has to discard
 			cout << "player has more than 7 cards in hand" << endl;
 			this->getActivePlayer()->hand.discard(this->getActivePlayer()->hand.cards.size() - 7);
@@ -155,14 +145,13 @@ void Game::play()
 		this->getActivePlayer()->landDropsLeft = 1;
 	});
 
-
 	for (int i = 0; i < sizeof(this->players) / sizeof(Player); i++) {
 		for (int c = 0; c < 7; c++)
 			this->players[i].draw();
 	}
 
 	while (true) {
-		cout << "________________\nTurn of player " << this->active + 1 << endl;
+		cout << "\n________________\nTurn of player " << this->active + 1 << endl;
 		this->turn();
 		this->active = this->active == 0 ? 1 : 0;
 	}

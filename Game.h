@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "GameStack.h"
 
-class Game : public Callback
+class Game : public Callback<Game>
 {
 private:
 	int priority;
@@ -20,8 +20,6 @@ public:
 	Player* getActivePlayer();
 	Player* getInactivePlayer();
 	Player* getPriorityPlayer();
-
-	void registerCallbackPlayers(string, function<void()>);
 
 	void switchPriority();
 	void playByPriority(bool);
