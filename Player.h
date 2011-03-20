@@ -24,7 +24,7 @@ public:
 	int life;
 	int poison;
 	int landDropsLeft;
-	int mana[12];
+	int mana[14];
 
 	Player();
 

@@ -124,10 +124,10 @@ void Player::print()
 
 int Player::getManaSum(bool snowOnly)
 {
-	Mana snow[] = {SnowForest, SnowIsland, SnowMountain, SnowPlains, SnowSwamp, SnowColorless};
+	int snow[] = {SnowForest, SnowIsland, SnowMountain, SnowPlains, SnowSwamp, SnowColorless, SnowMulticolor};
 	int sum = 0;
 	if (snowOnly) {
-		for (int i = 0; i < sizeof(snow) / sizeof(int); i++) {
+		for (int i = 0; i < sizeof(snow) / sizeof(int); i++) { /** @todo verify that this works */
 			sum += this->mana[snow[i]];
 		}
 	} else {

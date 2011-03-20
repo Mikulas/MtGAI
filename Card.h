@@ -17,6 +17,7 @@ private:
 	static int id_next;
 	int id;
 	static bool validate(string, string*);
+	bool payCost(int (*)[14]);
 
 public:
 	static bool validateSupertype(string);
