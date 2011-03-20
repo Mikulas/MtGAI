@@ -1,19 +1,22 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "Card.h"
 #include "ManaIndex.h"
 
 // forward declarations
+class Card;
 class Ability;
 class Player;
+
+using namespace std;
 
 class Effect
 {
 public:
 	string effect;
-
 	Ability *parent;
+
+	Effect();
 	
 	vector<Player*> target_players;
 	vector<Card*> target_cards;

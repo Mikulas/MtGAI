@@ -1,16 +1,27 @@
 #include "Ability.h"
+#include "Card.h"
 #include "Player.h"
 #include "Game.h"
 #include "GameStack.h"
 
-Ability::Ability(Player* caster)
+Ability::Ability(Card* card)
 {
-	this->caster = caster;
+	this->card = card;
+}
+
+Ability::Ability(Card* card, string cost, string effect)
+{
+	this->effects.reserve(100);
+	this->card = card;
+	Effect fx;
+	this->cost.push_back(cost); /** @todo split the string first */
+	fx.effect = effect;
+	this->addEffect(fx);
 }
 
 void Ability::addEffect(Effect effect)
 {
-	effect.parent = &(this->caster->game->stack.abilities.back());
+	effect.parent = this; // this must be updated very often
 	this->effects.push_back(effect);
 }
 

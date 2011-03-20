@@ -4,7 +4,6 @@
 #include "HiddenZone.h"
 #include "Library.h"
 #include "Hand.h"
-#include "Effect.h"
 #include "Ability.h"
 #include "ManaIndex.h"
 

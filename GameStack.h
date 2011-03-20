@@ -14,6 +14,8 @@ public:
 	vector<int> queue;
 	bool isEmpty();
 
+	GameStack();
+
 	virtual void addCard(Card);
 	void addAbility(Ability);
 	void execute();

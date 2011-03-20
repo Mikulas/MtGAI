@@ -3,6 +3,11 @@
 
 using namespace std;
 
+CardContainer::CardContainer()
+{
+	this->cards.reserve(100);
+}
+
 void CardContainer::addCard(Card card)
 {
 	bool found = false;

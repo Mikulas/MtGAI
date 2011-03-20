@@ -1,6 +1,13 @@
 #include "GameStack.h"
 #include "Player.h"
 
+GameStack::GameStack()
+{
+	this->abilities.reserve(100);
+	this->cards.reserve(100);
+	this->queue.reserve(200);
+}
+
 void GameStack::addCard(Card card)
 {
 	bool found = false;
@@ -21,6 +28,10 @@ void GameStack::addCard(Card card)
 void GameStack::addAbility(Ability ability)
 {
 	this->abilities.push_back(ability);
+	for (vector<Effect>::iterator effect = this->abilities.back().effects.begin(); effect != this->abilities.back().effects.end(); effect++) {
+		effect->parent = &(this->abilities.back());
+	}
+
 	this->queue.push_back(1);
 }
 

@@ -34,9 +34,16 @@ void Player::play(bool sorcery)
 	int abilities_size = 0;
 	for (vector<Card>::iterator it = this->battlefield.cards.begin(); it != this->battlefield.cards.end(); ++it) {
 		Card card = *it;
-		vector<pair<string, string>> ability = card.permanentAbilities();
-		for (vector<pair<string, string>>::iterator it = ability.begin(); it != ability.end(); ++it) {
-			cout << "  [" << index << "] " << card.name << " - " << it->first << ": " << it->second << endl;
+		vector<Ability> abilities = card.getAbilities();
+		for (vector<Ability>::iterator it = abilities.begin(); it != abilities.end(); ++it) {
+			cout << "  [" << index << "] " << card.name << " - ";
+			for (vector<string>::iterator cost = it->cost.begin(); cost != it->cost.end(); cost++) {
+				cout << *cost << ", ";
+			}
+			cout << ": ";
+			for (vector<Effect>::iterator effect = it->effects.begin(); effect != it->effects.end(); effect++) {
+				cout << effect->effect << ", ";
+			}
 			index++;
 			abilities_size++;
 		}
@@ -66,23 +73,21 @@ void Player::play(bool sorcery)
 	} else if (choice <= abilities_size) {
 		int index = 0;
 		for (vector<Card>::iterator it = this->battlefield.cards.begin(); it != this->battlefield.cards.end(); ++it) {
-			Card card = *it;
-			vector<pair<string, string>> ability = card.permanentAbilities();
-			for (vector<pair<string, string>>::iterator it = ability.begin(); it != ability.end(); ++it) {
+			vector<Ability> abilities = it->getAbilities();
+			for (vector<Ability>::iterator ability = abilities.begin(); ability != abilities.end(); ++ability) {
 				if (index == choice - 1) {
-					//cout << card.name << " - " << it->first << ": " << it->second << endl;
-					Ability ability(&this->game->players[this->id]); // persistent pointer
-					this->game->stack.addAbility(ability);
-					Effect effect;
-					effect.effect = it->second;
-					this->game->stack.abilities.back().addEffect(effect);
+					ability->caster = this->game->getPriorityPlayer(); // persistent pointer to this
+					this->game->stack.addAbility(*ability);
+					this->game->stack.abilities.back().card = &(*it);
+					// set parent here 
 					return;
 				}
 				index++;
 			}
-		};
+		}
 	} else {
 		Card card = cards[choice - abilities_size - 1];
+		card.controller = this->game->getPriorityPlayer(); // persistent pointer to this
 		if (card.hasType("land")) {
 			this->landDropsLeft--;
 			this->hand.move(card, &this->battlefield); // Lands do not stack

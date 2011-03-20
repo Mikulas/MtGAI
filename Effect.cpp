@@ -1,6 +1,14 @@
 #include "Effect.h"
-#include "Player.h"
+#include "Card.h"
 #include "Ability.h"
+#include "Player.h"
+
+Effect::Effect()
+{
+	this->target_players.reserve(10);
+	this->target_cards.reserve(10);
+	this->target_effects.reserve(10);
+}
 
 void Effect::setTarget(Player* player)
 {
@@ -13,7 +21,7 @@ void Effect::setTarget(Card* card)
 }
 
 void Effect::setTarget(Effect* effect)
-{
+{	
 	this->target_effects.push_back(effect);
 }
 

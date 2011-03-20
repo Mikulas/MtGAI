@@ -5,21 +5,25 @@
 #include <regex>
 #include <functional>
 #include "Callback.h"
+#include "Ability.h"
+#include "Castable.h"
 
 using namespace std;
 
 // forward declaration
 class Player;
 
-class Card : public Callback<Card>
+class Card : public Callback<Card>, public Castable
 {
 private:
 	static int id_next;
 	int id;
 	static bool validate(string, string*);
-	bool payCost(int (*)[14]);
 
 public:
+	Player* owner;
+	Player* controller;
+
 	static bool validateSupertype(string);
 	static bool validateType(string);
 	static bool validateSubtype(string, vector<string>);
@@ -27,7 +31,6 @@ public:
 	vector<string> rules;
 	string name;
 	string mana_cost;
-	vector<string> cost;
 	int power;
 	int toughness;
 	int loyalty;
@@ -55,13 +58,12 @@ public:
 	bool isLimited(); // 4 cards per deck for most cards
 	bool isPermanent();
 	bool isInstant();
-	bool isCastable(Player*);
-
+	
 	vector<string> getAdditionalCost();
-	void printCost();
-	vector<pair<string, string>> permanentAbilities();
-	void payCost(Player*);
+	virtual Castable::Cost getCost();
 	void evalute();
+
+	vector<Ability> getAbilities();
 
 	void print();
 
