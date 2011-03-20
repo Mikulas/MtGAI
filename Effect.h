@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "ManaIndex.h"
+#include "Castable.h"
 
 // forward declarations
 class Card;

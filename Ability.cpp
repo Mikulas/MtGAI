@@ -31,3 +31,13 @@ void Ability::evalute()
 		it->evalute();
 	}
 }
+
+Castable::Cost Ability::getCost()
+{
+	return make_pair(this->mana_cost, this->cost);
+}
+
+Card* Ability::getCard()
+{
+	return this->card;
+}

@@ -35,17 +35,30 @@ void Player::play(bool sorcery)
 	for (vector<Card>::iterator it = this->battlefield.cards.begin(); it != this->battlefield.cards.end(); ++it) {
 		Card card = *it;
 		vector<Ability> abilities = card.getAbilities();
-		for (vector<Ability>::iterator it = abilities.begin(); it != abilities.end(); ++it) {
-			cout << "  [" << index << "] " << card.name << " - ";
-			for (vector<string>::iterator cost = it->cost.begin(); cost != it->cost.end(); cost++) {
-				cout << *cost << ", ";
+		for (vector<Ability>::iterator ability = abilities.begin(); ability != abilities.end(); ++ability) {
+			if (ability->isCastable(this)) {
+				cout << "  [" << index << "] " << card.name << " - ";
+				for (vector<string>::iterator cost = ability->cost.begin(); cost != ability->cost.end(); cost++) {
+					cout << *cost << ", ";
+				}
+				cout << ": ";
+				for (vector<Effect>::iterator effect = ability->effects.begin(); effect != ability->effects.end(); effect++) {
+					cout << effect->effect << ", ";
+				}
+				cout << endl;
+				index++;
+				abilities_size++;
+			} else {
+				cout << "  [_] " << card.name << " - ";
+				for (vector<string>::iterator cost = ability->cost.begin(); cost != ability->cost.end(); cost++) {
+					cout << *cost << ", ";
+				}
+				cout << ": ";
+				for (vector<Effect>::iterator effect = ability->effects.begin(); effect != ability->effects.end(); effect++) {
+					cout << effect->effect << ", ";
+				}
+				cout << endl;
 			}
-			cout << ": ";
-			for (vector<Effect>::iterator effect = it->effects.begin(); effect != it->effects.end(); effect++) {
-				cout << effect->effect << ", ";
-			}
-			index++;
-			abilities_size++;
 		}
 	};
 	this->hand.foreach([&](Card *card) {
@@ -75,7 +88,9 @@ void Player::play(bool sorcery)
 		for (vector<Card>::iterator it = this->battlefield.cards.begin(); it != this->battlefield.cards.end(); ++it) {
 			vector<Ability> abilities = it->getAbilities();
 			for (vector<Ability>::iterator ability = abilities.begin(); ability != abilities.end(); ++ability) {
+				if (!ability->isCastable(this)) break;
 				if (index == choice - 1) {
+					ability->payCost(this);
 					ability->caster = this->game->getPriorityPlayer(); // persistent pointer to this
 					this->game->stack.addAbility(*ability);
 					this->game->stack.abilities.back().card = &(*it);

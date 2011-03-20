@@ -59,6 +59,7 @@ public:
 	bool isPermanent();
 	bool isInstant();
 	
+	virtual Card* getCard();
 	vector<string> getAdditionalCost();
 	virtual Castable::Cost getCost();
 	void evalute();

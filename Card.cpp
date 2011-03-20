@@ -297,3 +297,8 @@ Castable::Cost Card::getCost()
 {
 	return make_pair(this->mana_cost, this->getAdditionalCost());
 }
+
+Card* Card::getCard()
+{
+	return this;
+}

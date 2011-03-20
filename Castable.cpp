@@ -1,5 +1,6 @@
 #include "Castable.h"
 #include "Player.h"
+#include "Card.h"
 
 Castable::Cost Castable::getCost()
 {
@@ -17,20 +18,16 @@ void Castable::printCost()
 
 bool Castable::isCastable(Player* caster)
 {
-	int mana[14];
-	for (int i = 0; i < sizeof(caster->mana) / sizeof(int); i++) {
-		mana[i] = caster->mana[i];
-	}
-	return this->payCost(&mana);
+	return this->payCost(&(caster->mana));
 }
 
 void Castable::payCost(Player* caster)
 {
-	if (!this->payCost(&(caster->mana)))
+	if (!this->payCost(&(caster->mana), true))
 		throw exception("Player managed to play a noncastable spell");
 }
 
-bool Castable::payCost(int (*pointer)[14])
+bool Castable::payCost(int (*pointer)[14], bool paying)
 {
 	int mana[14];
 	for (int i = 0; i < sizeof(*pointer) / sizeof(int); i++) {
@@ -125,14 +122,24 @@ bool Castable::payCost(int (*pointer)[14])
 		}
 	}
 	
-	for (int i = 0; i < sizeof(*pointer) / sizeof(int); i++) {
-		(*pointer)[i] = mana[i];
-	}
-
 	vector<string> cost = this->getCost().second;
 	for (vector<string>::iterator it = cost.begin(); it != cost.end(); ++it) {
-		cout << "additional cost ";
-		return false;
+		if (*it == "{T}") {
+			if (!this->getCard()->tapped) {
+				if (paying) this->getCard()->tapped = true;
+			} else {
+				return false;
+			}
+		} else {
+			cout << "additional cost ";
+			return false;
+		}
+	}
+
+	if (paying) {
+		for (int i = 0; i < sizeof(*pointer) / sizeof(int); i++) {
+			(*pointer)[i] = mana[i];
+		}
 	}
 	return true;
 }

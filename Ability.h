@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "Effect.h"
+#include "Castable.h"
 
 // forward declaration
 class Card;
@@ -9,7 +10,7 @@ class Player;
 class Game;
 class GameStack;
 
-class Ability
+class Ability : public Castable
 {
 public:
 	Card* card;
@@ -17,6 +18,9 @@ public:
 	vector<Effect> effects;
 
 	vector<string> cost;
+
+	virtual Castable::Cost getCost();
+	virtual Card* getCard();
 
 	Ability(Card*);
 	Ability(Card*, string, string);
