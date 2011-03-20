@@ -16,7 +16,8 @@ int main (int argc, char * const argv[])
 	Game game = Game();
 
 	//string deck[] = {"Caller of the Hunt", "Caller of the Hunt", "Bone Splinters", "Bone Splinters", "Abandoned Outpost", "Abandoned Outpost", "Abandoned Outpost", "Disenchant", "Disenchant", "Disenchant", "Plains", "Plains", "Island", "Aven Brigadier", "Aven Brigadier", "Aven Brigadier", "Aven Brigadier"};
-	string deck[] = {"Shattering Spree", "Shattering Spree", "Shattering Spree", "Shattering Spree", "Skred", "Skred", "Skred", "Skred", "Mountain", "Mountain", "Mountain", "Mountain", "Mountain"};
+	//string deck[] = {"Shattering Spree", "Shattering Spree", "Shattering Spree", "Shattering Spree", "Skred", "Skred", "Skred", "Skred", "Mountain", "Mountain", "Mountain", "Mountain", "Mountain"};
+	string deck[] = {"Abbey Matron", "Abbey Matron", "Abbey Matron", "Abbey Matron", "Abbey Matron", "Plains", "Plains", "Plains", "Plains", "Plains"};
 	for (int p = 0; p < 2; p++) {
 		for (int i = 0; i < sizeof(deck) / sizeof(string); i++) {
 			Card card = db.get(deck[i]);

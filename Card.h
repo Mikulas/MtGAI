@@ -40,7 +40,7 @@ public:
 	vector<string> subtypes;
 	bool tapped;
 	bool isUntappable;
-	
+
 	Card(string = "");
 
 	void setPower(int);

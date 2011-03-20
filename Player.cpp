@@ -38,12 +38,18 @@ void Player::play(bool sorcery)
 		for (vector<Ability>::iterator ability = abilities.begin(); ability != abilities.end(); ++ability) {
 			if (ability->isCastable(this)) {
 				cout << "  [" << index << "] " << card.name << " - ";
-				for (vector<string>::iterator cost = ability->cost.begin(); cost != ability->cost.end(); cost++) {
-					cout << *cost << ", ";
+				for (vector<string>::iterator cost = ability->cost.begin(); cost != ability->cost.end();) {
+					cout << *cost;
+					cost++;
+					if (cost != ability->cost.end())
+						cout << ", ";
 				}
 				cout << ": ";
-				for (vector<Effect>::iterator effect = ability->effects.begin(); effect != ability->effects.end(); effect++) {
-					cout << effect->effect << ", ";
+				for (vector<Effect>::iterator effect = ability->effects.begin(); effect != ability->effects.end();) {
+					cout << effect->effect;
+					effect++;
+					if (effect != ability->effects.end())
+						cout << ", ";
 				}
 				cout << endl;
 				index++;

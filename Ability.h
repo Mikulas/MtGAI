@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <regex>
 #include "Effect.h"
 #include "Castable.h"
 

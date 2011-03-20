@@ -15,9 +15,8 @@ private:
 
 public:
 	typedef pair<string, vector<string>> Cost;
-	string mana_cost;
-
-	virtual Cost getCost();
+	
+	virtual Cost getCost() = 0;
 	void printCost();
 	bool isCastable(Player*);
 	void payCost(Player*);

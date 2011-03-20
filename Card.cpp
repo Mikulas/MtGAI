@@ -185,9 +185,8 @@ bool Card::hasSubtype(string subtype)
 
 bool Card::isPermanent()
 {
-	/** @todo implement */
-	// return true if is in proper zone;
-	return true;
+	/** @todo "A permanent is a card or token on the battlefield." Does this work well? */
+	return !this->hasType("instant") && !this->hasType("sorcery");
 }
 
 bool Card::isLimited()
@@ -261,7 +260,7 @@ vector<Ability> Card::getAbilities()
 		}
 	}
 	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) { // basic land handler
-		string effect;
+		string effect = "";
 		if (*it == "forest") {
 			effect = "Add {G} to your mana pool";
 		} else if (*it == "island") {
@@ -273,7 +272,9 @@ vector<Ability> Card::getAbilities()
 		} else if (*it == "swamp") {
 			effect = "Add {B} to your mana pool";
 		}
-		abilities.push_back(Ability(this, "{T}", effect));
+		if (effect != "") {
+			abilities.push_back(Ability(this, "{T}", effect));
+		}
 	}
 
 	return abilities;

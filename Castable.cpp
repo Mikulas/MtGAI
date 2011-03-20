@@ -2,11 +2,6 @@
 #include "Player.h"
 #include "Card.h"
 
-Castable::Cost Castable::getCost()
-{
-	return make_pair(this->mana_cost, vector<string>());
-}
-
 void Castable::printCost()
 {
 	Cost cost = this->getCost();
