@@ -70,7 +70,6 @@
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardContainer.cpp" />
-    <ClCompile Include="Castable.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Ability.cpp" />
@@ -85,7 +84,6 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardContainer.h" />
-    <ClInclude Include="Castable.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Ability.h" />

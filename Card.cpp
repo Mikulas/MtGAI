@@ -293,3 +293,8 @@ void Card::printCost()
 		cout << ", " << *it;
 	}
 }
+
+bool Card::isCastable(Player*)
+{
+	return true;
+}

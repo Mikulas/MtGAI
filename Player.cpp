@@ -52,7 +52,7 @@ void Player::play(bool sorcery)
 	});
 
 	string buffer;
-	getline(cin, buffer); // intentionally so that \n is treated as 0
+	getline(cin, buffer); // intentionally so that merely \n is treated as 0
 	int choice = atoi(buffer.c_str());
 	if (choice == 0) {
 		cout << "passed" << endl;

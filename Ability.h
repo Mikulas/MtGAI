@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include "Effect.h"
-#include "Castable.h"
 
 // forward declaration
 class Player;
