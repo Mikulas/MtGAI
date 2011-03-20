@@ -25,7 +25,7 @@ public:
 	void playByPriority(bool);
 	bool playersPassed();
 
-	void turn();
+	void turn(int);
 	void play();
 	void end(int);
 };

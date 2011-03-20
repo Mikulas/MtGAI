@@ -65,7 +65,7 @@ void Game::end(int winner)
 	exit(winner);
 }
 
-void Game::turn()
+void Game::turn(int turn_number)
 {
 	Player *active = this->getActivePlayer();
 	Player *opponent = this->getInactivePlayer();
@@ -86,7 +86,7 @@ void Game::turn()
 	this->playByPriority(false);
 	this->callback("nextPhase", this);
 		//active player draws a card
-	if (active->canDraw) /** @todo onplay must not draw a card! */
+	if (turn_number != 0 && active->canDraw)
 		active->draw();
 		//begin draw trigger
 	cout << "### beginning - upkeep" << endl;
@@ -160,9 +160,11 @@ void Game::play()
 		}
 	}
 
+	int turn = 0;
 	while (true) {
 		cout << "\n________________\nTurn of player " << this->active + 1 << endl;
-		this->turn();
+		this->turn(turn);
 		this->active = this->active == 0 ? 1 : 0;
+		turn++;
 	}
 }
