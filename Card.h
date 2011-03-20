@@ -59,6 +59,7 @@ public:
 	vector<string> getAdditionalCost();
 	void printCost();
 	vector<pair<string, string>> permanentAbilities();
+	void payCost(Player*);
 	void evalute();
 
 	void print();

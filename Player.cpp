@@ -89,6 +89,7 @@ void Player::play(bool sorcery)
 			//this->battlefield.cards.back().callback("enterBattlefield", &(this->battlefield.cards.back()));
 		} else {
 			this->hand.move(card, &this->game->stack);
+			cout << "card " << card.name << " moved to stack" << endl;
 		}
 	}
 }

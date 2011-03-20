@@ -15,8 +15,8 @@ void CardContainer::addCard(Card card)
 	if (!found)
 		this->cards.push_back(card);
 	else
-		cout << "Card with this id already exists in container\n";
-};
+		throw exception("Card with this id already exists in container");
+}
 
 void CardContainer::foreach(const function<void(Card*)> callback)
 {
@@ -27,7 +27,7 @@ void CardContainer::move(Card card_moved, CardContainer *container)
 {
 	this->cards.erase(remove(this->cards.begin(), this->cards.end(), card_moved), this->cards.end());
 	container->addCard(card_moved);
-};
+}
 
 void CardContainer::print()
 {
@@ -37,4 +37,4 @@ void CardContainer::print()
 CardContainer::~CardContainer(void)
 {
 	cout << "Card container cannot be destroyed!\n";
-};
+}

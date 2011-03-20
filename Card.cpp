@@ -300,13 +300,70 @@ bool Card::isCastable(Player* caster)
 	tr1::cmatch res;
 	bool implementedWarning = false;
 	if (tr1::regex_match(this->mana_cost.c_str(), res, rg_mana)) {
-		if (atoi(string(res[1]).c_str()) > caster->getManaSum()) {
-			return false;
-		}
 		tr1::regex rg_color("[GURWBS]|\\{GURWB\\}");
 		tr1::sregex_token_iterator end;
 		string match(res[2]);
-		int mana[10] = {0};
+		int mana[12] = {0};
+		mana[Colorless] = atoi(string(res[1]).c_str());
+		for (tr1::sregex_token_iterator it(match.begin(), match.end(), rg_color); it != end; it++) {
+			if (*it == "G") mana[Forest]++;
+			else if (*it == "U") mana[Island]++;
+			else if (*it == "R") mana[Mountain]++;
+			else if (*it == "W") mana[Plains]++;
+			else if (*it == "B") mana[Swamp]++;
+			else if (*it == "S") mana[Snow]++;
+			else {cout << "choice cost "; implementedWarning = true;}
+		}
+		int sum = 0;
+		for (int i = Forest; i != Snow; i++) {
+			sum += mana[i];
+			if (i == Colorless || i == SnowColorless)
+				continue;
+			if (mana[i] > caster->mana[i])
+				return false;
+		}
+		// do we have enought mana to pay colorless from the resources left?
+		if (caster->getManaSum() < sum) {
+			return false;
+		}
+	}
+		
+	vector<string> cost = this->getAdditionalCost();
+	for (vector<string>::iterator it = cost.begin(); it != cost.end(); ++it) {
+		if (implementedWarning) cout << "and ";
+		cout << "additional cost ";
+		implementedWarning = true;
+		// cout << " X ", *it;
+	}
+	if (implementedWarning) cout << "are not implemented yet" << endl;
+	return true;
+}
+
+void Card::payCost(Player* caster)
+{
+	if (!this->isCastable(caster)) {
+		throw exception("The card is not castable, cannot pay cost");
+	}
+	tr1::regex rg_mana("(\\d+)?([GURWBS]|\\{[GURWB]{2}\\}|\\{(X|Y)\\})*");
+	tr1::cmatch res;
+	/** @todo implement */
+	bool implementedWarning = false;
+	if (tr1::regex_match(this->mana_cost.c_str(), res, rg_mana)) {
+		int colorless = atoi(string(res[1]).c_str());
+		
+		// spend as much mana as possible from colorless and then spending the most frequent color in the pool
+		int highest = Forest;
+		while (caster->mana[Colorless] < colorless) {
+			for (int i = Forest; i != Snow; i++) 
+				if (caster->mana[highest] > caster->mana[i]) highest = i;
+			caster->setMana((Mana) highest, -1);
+		}
+		caster->setMana(Colorless, -colorless);
+		
+		tr1::regex rg_color("[GURWBS]|\\{GURWB\\}");
+		tr1::sregex_token_iterator end;
+		string match(res[2]);
+		int mana[12] = {0};
 		for (tr1::sregex_token_iterator it(match.begin(), match.end(), rg_color); it != end; it++) {
 			if (*it == "G") mana[Forest]++;
 			else if (*it == "U") mana[Island]++;
@@ -318,7 +375,7 @@ bool Card::isCastable(Player* caster)
 		}
 		for (int i = Forest; i != Snow; i++) {
 			if (mana[i] > caster->mana[i]) {
-				return false;
+				return;
 			}
 		}
 	}
@@ -330,5 +387,5 @@ bool Card::isCastable(Player* caster)
 		// cout << " X ", *it;
 	}
 	if (implementedWarning) cout << "are not implemented yet" << endl;
-	return true;
+	return;
 }

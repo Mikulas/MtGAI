@@ -44,7 +44,8 @@ void Game::playByPriority(bool mainPhase)
 		if (this->active == this->priority) cout << "* priority is on active player: ";
 		else cout << "* priority is on inactive player: ";
 		
-		this->getPriorityPlayer()->play(this->priority == this->active && this->stack.isEmpty() && mainPhase);
+		bool sorceryOnly = this->priority == this->active && this->stack.isEmpty() && mainPhase;
+		this->getPriorityPlayer()->play(sorceryOnly);
 		if (!this->stack.isEmpty() || this->getPriorityPlayer()->passed) { // if land was not played
 			this->switchPriority();
 		}
@@ -54,7 +55,6 @@ void Game::playByPriority(bool mainPhase)
 			this->priority = this->active;
 		}
 	}
-	this->priority = this->active;
 }
 
 void Game::end(int winner)

@@ -4,6 +4,9 @@
 #include "PublicZone.h"
 #include "Ability.h"
 
+// forward declaration
+class Player;
+
 class GameStack : public PublicZone
 {
 public:
@@ -11,7 +14,7 @@ public:
 	vector<int> queue;
 	bool isEmpty();
 
-	void addCard(Card);
+	virtual void addCard(Card);
 	void addAbility(Ability);
 	void execute();
 };

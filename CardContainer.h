@@ -12,7 +12,7 @@ class CardContainer
 {
 public:
 	vector<Card> cards;
-	void addCard(Card);
+	virtual void addCard(Card);
 	void foreach(const function<void(Card*)>);
 	void move(Card, CardContainer*);
 	void print();
