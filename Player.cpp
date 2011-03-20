@@ -45,14 +45,14 @@ void Player::play(bool sorcery)
 		if ((!sorcery && card->isInstant()) || (sorcery && (this->landDropsLeft > 0 || !card->hasType("land")))) {
 			if (card->isCastable(this)) {
 				cards.push_back(*card);
-				cout << "  [" << index << "] " << card->name << " [";
+				cout << "  [" << index << "] {";
 				card->printCost();
-				cout << "]" << endl;
+				cout << "}: "<< card->name << endl;
 				index++;
 			} else {
-				cout << "  [_] " << card->name << " [";
+				cout << "  [_] {";
 				card->printCost();
-				cout << "]" << endl;
+				cout << "}: " << card->name << endl;
 			}
 		}
 	});
