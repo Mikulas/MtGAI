@@ -88,6 +88,7 @@ void Player::play(bool sorcery)
 			this->hand.move(card, &this->battlefield); // Lands do not stack
 			//this->battlefield.cards.back().callback("enterBattlefield", &(this->battlefield.cards.back()));
 		} else {
+			card.payCost(this);
 			this->hand.move(card, &this->game->stack);
 			cout << "card " << card.name << " moved to stack" << endl;
 		}

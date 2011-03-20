@@ -317,12 +317,16 @@ bool Card::isCastable(Player* caster)
 		int sum = 0;
 		for (int i = Forest; i != Snow; i++) {
 			sum += mana[i];
-			if (i == Colorless || i == SnowColorless)
+			if (i == Colorless || i == SnowColorless || i == Snow)
 				continue;
 			if (mana[i] > caster->mana[i])
 				return false;
 		}
-		// do we have enought mana to pay colorless from the resources left?
+		// enought mana to pay snow mana from the resources left?
+		if (caster->getManaSum(true) < mana[Snow]) {
+			return false;
+		}
+		// enought mana to pay colorless from the resources left?
 		if (caster->getManaSum() < sum) {
 			return false;
 		}
@@ -365,13 +369,25 @@ void Card::payCost(Player* caster)
 		string match(res[2]);
 		int mana[12] = {0};
 		for (tr1::sregex_token_iterator it(match.begin(), match.end(), rg_color); it != end; it++) {
-			if (*it == "G") mana[Forest]++;
-			else if (*it == "U") mana[Island]++;
-			else if (*it == "R") mana[Mountain]++;
-			else if (*it == "W") mana[Plains]++;
-			else if (*it == "B") mana[Swamp]++;
-			else if (*it == "S") mana[Snow]++;
-			else cout << "choice cost "; implementedWarning++;
+			if (*it == "G") caster->setMana(Forest, -1);
+			else if (*it == "U") caster->setMana(Island, -1);
+			else if (*it == "R") caster->setMana(Mountain, -1);
+			else if (*it == "W") caster->setMana(Plains, -1);
+			else if (*it == "B") caster->setMana(Swamp, -1);
+			else if (*it == "S") {
+				if (caster->mana[SnowColorless] > 0) { 
+					caster->setMana(SnowColorless, -1);
+				} else {
+					int highest = SnowForest;
+					Mana snow[] = {SnowForest, SnowIsland, SnowMountain, SnowPlains, SnowSwamp};
+					for (int i = 0; i < 5; i++) 
+						if (caster->mana[snow[i]] > caster->mana[i]) highest = i;
+					caster->setMana((Mana) highest, -1);
+				}
+			} else {
+				cout << "choice cost ";
+				implementedWarning++;
+			}
 		}
 		for (int i = Forest; i != Snow; i++) {
 			if (mana[i] > caster->mana[i]) {
