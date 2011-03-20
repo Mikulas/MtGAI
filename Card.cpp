@@ -271,13 +271,12 @@ vector<pair<string, string>> Card::permanentAbilities()
 	return abilities;
 }
 
-vector<string> Card::getCost()
+vector<string> Card::getAdditionalCost()
 {
 	vector<string> cost;
 
 	tr1::regex rg_cost = tr1::regex("As an additional cost to cast " + this->name + ", ([^.]*).");
 	tr1::cmatch res;
-	cout << this->mana_cost;
 	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
 		if (tr1::regex_match((*it).c_str(), res, rg_cost)) {
 			cost.push_back(res[1]);
@@ -288,13 +287,48 @@ vector<string> Card::getCost()
 
 void Card::printCost()
 {
-	vector<string> cost = this->getCost();
+	vector<string> cost = this->getAdditionalCost();
+	cout << this->mana_cost;
 	for (vector<string>::iterator it = cost.begin(); it != cost.end(); ++it) {
 		cout << ", " << *it;
 	}
 }
 
-bool Card::isCastable(Player*)
+bool Card::isCastable(Player* caster)
 {
+	tr1::regex rg_mana("(\\d+)?([GURWBS]|\\{[GURWB]{2}\\}|\\{(X|Y)\\})*");
+	tr1::cmatch res;
+	bool implementedWarning = false;
+	if (tr1::regex_match(this->mana_cost.c_str(), res, rg_mana)) {
+		if (atoi(string(res[1]).c_str()) > caster->getManaSum()) {
+			return false;
+		}
+		tr1::regex rg_color("[GURWBS]|\\{GURWB\\}");
+		tr1::sregex_token_iterator end;
+		string match(res[2]);
+		int mana[10] = {0};
+		for (tr1::sregex_token_iterator it(match.begin(), match.end(), rg_color); it != end; it++) {
+			if (*it == "G") mana[Forest]++;
+			else if (*it == "U") mana[Island]++;
+			else if (*it == "R") mana[Mountain]++;
+			else if (*it == "W") mana[Plains]++;
+			else if (*it == "B") mana[Swamp]++;
+			else if (*it == "S") mana[Snow]++;
+			else cout << "choice cost "; implementedWarning++;
+		}
+		for (int i = Forest; i != Snow; i++) {
+			if (mana[i] > caster->mana[i]) {
+				return false;
+			}
+		}
+	}
+		
+	vector<string> cost = this->getAdditionalCost();
+	for (vector<string>::iterator it = cost.begin(); it != cost.end(); ++it) {
+		if (implementedWarning) cout << "and ";
+		cout << "additional cost "; implementedWarning++;
+		// cout << " X ", *it;
+	}
+	if (implementedWarning) cout << "are not implemented yet" << endl;
 	return true;
 }

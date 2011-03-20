@@ -24,11 +24,12 @@ public:
 	int life;
 	int poison;
 	int landDropsLeft;
-	int mana[11];
+	int mana[12];
 
 	Player();
 
 	void setMana(Mana, int);
+	int getManaSum(bool = false);
 
 	void emptyManaPool();
 	void play(bool);

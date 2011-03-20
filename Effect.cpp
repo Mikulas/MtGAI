@@ -29,9 +29,6 @@ void Effect::evalute()
 	if (tr1::regex_match(this->effect.c_str(), res, rg_sentence)) {
 		string match(res[1]);
 		for (tr1::sregex_token_iterator it(match.begin(), match.end(), rg_mana); it != end; it++) {
-			cout << "it = " << *it << endl;
-			// 0		1		2		3			4		5			6			7				8				9		10
-			// Forest, Island, Mountain, Plains, Swamp, Snow-Forest, Snow-Island, Snow-Mountain, Snow-Plains, Snow-Swamp, Colorless	
 			if (res[1] == "one mana of any color") {
 				cout << "mana of what color do you want to add to your mana pool?" << endl;
 				/** @todo implement */
@@ -53,5 +50,4 @@ void Effect::evalute()
 			}
 		}
 	}
-	caster->print();
 }

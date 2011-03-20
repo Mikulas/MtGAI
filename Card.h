@@ -56,7 +56,7 @@ public:
 	bool isInstant();
 	bool isCastable(Player*);
 
-	vector<string> getCost();
+	vector<string> getAdditionalCost();
 	void printCost();
 	vector<pair<string, string>> permanentAbilities();
 	void evalute();

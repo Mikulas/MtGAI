@@ -43,11 +43,17 @@ void Player::play(bool sorcery)
 	};
 	this->hand.foreach([&](Card *card) {
 		if ((!sorcery && card->isInstant()) || (sorcery && (this->landDropsLeft > 0 || !card->hasType("land")))) {
-			cards.push_back(*card);
-			cout << "  [" << index << " " << (card->isCastable(this) ? "y" : "n") << "] " << card->name << " [";
-			card->printCost();
-			cout << "]" << endl;
-			index++;
+			if (card->isCastable(this)) {
+				cards.push_back(*card);
+				cout << "  [" << index << "] " << card->name << " [";
+				card->printCost();
+				cout << "]" << endl;
+				index++;
+			} else {
+				cout << "  [_] " << card->name << " [";
+				card->printCost();
+				cout << "]" << endl;
+			}
 		}
 	});
 
@@ -112,4 +118,20 @@ void Player::print()
 		cout << this->mana[i] << ", ";
 	}
 	cout << endl;
+}
+
+int Player::getManaSum(bool snowOnly)
+{
+	Mana snow[] = {SnowForest, SnowIsland, SnowMountain, SnowPlains, SnowSwamp, SnowColorless};
+	int sum = 0;
+	if (snowOnly) {
+		for (int i = 0; i < sizeof(snow) / sizeof(int); i++) {
+			sum += this->mana[snow[i]];
+		}
+	} else {
+		for (int i = 0; i < sizeof(this->mana) / sizeof(int); i++) {
+			sum += this->mana[i];
+		}
+	}
+	return sum;
 }
