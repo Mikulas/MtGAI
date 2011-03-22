@@ -22,6 +22,7 @@ void CardContainer::addCard(Card card)
 		throw exception("Card with this id already exists in container");
 }
 
+// TODO remove this
 void CardContainer::foreach(const function<void(Card*)> callback)
 {
 	for_each(this->cards.begin(), this->cards.end(), [callback](Card card) {callback(&card);} );

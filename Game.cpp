@@ -78,9 +78,9 @@ void Game::turn(int turn_number)
 		card->callback("phase", card);
 	});
 		//optional untap, no stack
-	active->battlefield.foreach([&](Card *card) {
-		card->tapped = card->isUntappable; // TODO untapping does not work properly
-	});
+	for(vector<Card>::iterator card = active->battlefield.cards.begin(); card != active->battlefield.cards.end(); card++) {
+		card->tapped = !card->isUntappable;
+	};
 		//begin upkeep trigger
 	this->callback("beginUpkeep", this);
 		//untap trigger
