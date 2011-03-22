@@ -68,8 +68,8 @@ void Player::play(bool sorcery)
 				cout << endl;
 			}
 		}
-	};
-	this->hand.foreach([&](Card *card) {
+	}
+	for (vector<Card>::iterator card = this->hand.cards.begin(); card != this->hand.cards.end(); card++) {
 		if ((!sorcery && card->isInstant()) || (sorcery && (this->landDropsLeft > 0 || !card->hasType("land")))) {
 			if (card->isCastable(this)) {
 				cards.push_back(*card);
@@ -83,7 +83,7 @@ void Player::play(bool sorcery)
 				cout << "}: " << card->name << endl;
 			}
 		}
-	});
+	}
 
 	string buffer;
 	int choice;

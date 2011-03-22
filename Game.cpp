@@ -74,13 +74,13 @@ void Game::turn(int turn_number)
 	cout << "### beginning" << endl;
 	//- untap
 		//phase in and out simultaneously, no stack
-	active->battlefield.foreach([&](Card *card) {
-		card->callback("phase", card);
-	});
+	for(vector<Card>::iterator card = active->battlefield.cards.begin(); card != active->battlefield.cards.end(); card++) {
+		card->callback("phase", &*card);
+	}
 		//optional untap, no stack
 	for(vector<Card>::iterator card = active->battlefield.cards.begin(); card != active->battlefield.cards.end(); card++) {
 		card->tapped = !card->isUntappable;
-	};
+	}
 		//begin upkeep trigger
 	this->callback("beginUpkeep", this);
 		//untap trigger

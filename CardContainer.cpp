@@ -8,24 +8,18 @@ CardContainer::CardContainer()
 	this->cards.reserve(100);
 }
 
-void CardContainer::addCard(Card card)
+void CardContainer::addCard(Card newCard)
 {
 	bool found = false;
-	this->foreach([&](Card *it) {
-		if (card == *it)
+	for (vector<Card>::iterator card = this->cards.begin(); card != this->cards.end(); card++) {
+		if (*card == newCard)
 			found = true;
-	});
+	}
 
 	if (!found)
-		this->cards.push_back(card);
+		this->cards.push_back(newCard);
 	else
 		throw exception("Card with this id already exists in container");
-}
-
-// TODO remove this
-void CardContainer::foreach(const function<void(Card*)> callback)
-{
-	for_each(this->cards.begin(), this->cards.end(), [callback](Card card) {callback(&card);} );
 }
 
 void CardContainer::move(Card card_moved, CardContainer *container)
@@ -36,7 +30,9 @@ void CardContainer::move(Card card_moved, CardContainer *container)
 
 void CardContainer::print()
 {
-	this->foreach([&](Card *card) {cout << "\t" << card->name << endl;} );
+	for (vector<Card>::iterator card = this->cards.begin(); card != this->cards.end(); card++) {
+		cout << "\t" << card->name << endl;
+	}
 }
 
 CardContainer::~CardContainer(void)
