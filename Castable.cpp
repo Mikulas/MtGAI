@@ -66,7 +66,7 @@ bool Castable::payCost(int (*pointer)[14], bool paying)
 				}
 			}
 		}
-		while (mana[Snow] < 0) { /** @todo fix me, must predict what color is the best to be spend */
+		while (mana[Snow] < 0) { // TODO fix me, must predict what color is the best to be spend
 			for (int i = 0; i < 5; i++) {
 				if (mana[colored_mana[i] + 5] > 0) {
 					mana[Snow] += 1;
@@ -90,7 +90,7 @@ bool Castable::payCost(int (*pointer)[14], bool paying)
 		while (mana[Colorless] < 0) {
 			bool found = false;
 			for (int i = 0; i < 5; i++) { // spend colored mana
-				if (mana[colored_mana[i]] > 0) { /** @todo fix me, must predict what color is the best to be spend */
+				if (mana[colored_mana[i]] > 0) { // TODO fix me, must predict what color is the best to be spend
 					mana[colored_mana[i]] -= 1;
 					mana[Colorless] += 1;
 					found = true;
@@ -99,7 +99,7 @@ bool Castable::payCost(int (*pointer)[14], bool paying)
 			}
 			if (found) break;
 			for (int i = 0; i < 5; i++) { // spend snow mana
-				if (mana[colored_mana[i] + 5] > 0) { /** @todo fix me, must predict what color is the best to be spend */
+				if (mana[colored_mana[i] + 5] > 0) { // TODO fix me, must predict what color is the best to be spend
 					mana[colored_mana[i] + 5] -= 1;
 					mana[Colorless] += 1;
 					found = true;
@@ -132,7 +132,7 @@ bool Castable::payCost(int (*pointer)[14], bool paying)
 			return false;
 		}
 	}
-	/** @todo check that no index is lower than zero, otherwise return false */
+	// TODO check that no index is lower than zero, otherwise return false
 
 	if (paying) {
 		for (int i = 0; i < sizeof(*pointer) / sizeof(int); i++) {

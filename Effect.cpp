@@ -32,7 +32,7 @@ bool Effect::hasTarget()
 
 bool Effect::isManaEffect()
 {
-	tr1::regex rg_pool("mana pool"); /** @todo isn't this too plain? */
+	tr1::regex rg_pool("mana pool"); // TODO this should be more specific, add "add" to the regex somewhere
 	return tr1::regex_search(this->effect, rg_pool);
 }
 
@@ -50,7 +50,7 @@ void Effect::evalute()
 		for (tr1::sregex_token_iterator it(match.begin(), match.end(), rg_mana); it != end; it++) {
 			if (res[1] == "one mana of any color") {
 				cout << "mana of what color do you want to add to your mana pool?" << endl;
-				/** @todo implement */
+				// IMPLEMENT
 			} else if (res[1] == "{G}") {
 				caster->setMana(Forest, 1);
 			} else if (res[1] == "{U}") {

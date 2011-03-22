@@ -46,7 +46,7 @@ void Game::playByPriority(bool mainPhase)
 		
 		bool sorceryOnly = this->priority == this->active && this->stack.isEmpty() && mainPhase;
 		this->getPriorityPlayer()->play(sorceryOnly);
-		/** @todo handle mana abilities when stack is not empty - now it switches priority */
+		// TODO handle mana abilities when stack is not empty - now it switches priority
 		if (!this->stack.isEmpty() || this->getPriorityPlayer()->passed) { // if land was not played
 			this->switchPriority();
 		}

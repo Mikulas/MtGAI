@@ -48,7 +48,7 @@ bool Card::validateSubtype(string subtype, vector<string> types)
 	for (vector<string>::iterator it = types.begin(); it != types.end(); ++it) {
 		string type = *it;
 		validateType(type);
-		/** @todo fixme */
+		// TODO rewrite
 		if (type == "artifact") for (unsigned int i = 0; i < sizeof(artifact) / sizeof(string); i++) {if (artifact[i] == subtype) return true;};
 		if (type == "enchantement") for (unsigned int i = 0; i < sizeof(enchantement) / sizeof(string); i++) {if (enchantement[i] == subtype) return true;};
 		if (type == "land") for (unsigned int i = 0; i < sizeof(land) / sizeof(string); i++) {if (land[i] == subtype) return true;};
@@ -186,7 +186,8 @@ bool Card::hasSubtype(string subtype)
 
 bool Card::isPermanent()
 {
-	/** @todo "A permanent is a card or token on the battlefield." Does this work well? */
+	// this might not be precisly what rules say, but it should work well
+	// this definition is also handy on stack, where it decides between battlefield and graveyard
 	return !this->hasType("instant") && !this->hasType("sorcery");
 }
 

@@ -2,7 +2,7 @@
 
 void Hand::discard(int count)
 {
-	/** @todo implement player choice */
+	// IMPLEMENT player choice for discard
 	if (count <= 0)
 		throw new exception("Invalid count given, expected positive integer");
 

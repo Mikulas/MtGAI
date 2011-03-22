@@ -13,7 +13,7 @@ Player::Player()
 
 void Player::setMana(Mana index, int value)
 {
-	/** @todo this should be replaced with setting the property directly */
+	// TODO this should be replaced with setting the property directly
 	this->mana[index] += value;
 	this->mana[index] = this->mana[index] < 0 ? 0 : this->mana[index];
 }
@@ -160,7 +160,7 @@ int Player::getManaSum(bool snowOnly)
 	int snow[] = {SnowForest, SnowIsland, SnowMountain, SnowPlains, SnowSwamp, SnowColorless, SnowMulticolor};
 	int sum = 0;
 	if (snowOnly) {
-		for (int i = 0; i < sizeof(snow) / sizeof(int); i++) { /** @todo verify that this works */
+		for (int i = 0; i < sizeof(snow) / sizeof(int); i++) { // TODO verify that this works
 			sum += this->mana[snow[i]];
 		}
 	} else {
