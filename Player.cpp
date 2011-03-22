@@ -86,8 +86,11 @@ void Player::play(bool sorcery)
 	});
 
 	string buffer;
-	getline(cin, buffer); // intentionally so that \n is treated as 0
-	int choice = atoi(buffer.c_str());
+	int choice;
+	do {
+		getline(cin, buffer); // intentionally so that \n is treated as 0
+		choice = atoi(buffer.c_str());
+	} while (choice < 0 || choice > abilities_size + index);
 	if (choice == 0) {
 		cout << "passed" << endl;
 		this->passed = true;
@@ -98,15 +101,14 @@ void Player::play(bool sorcery)
 			for (vector<Ability>::iterator ability = abilities.begin(); ability != abilities.end(); ++ability) {
 				if (!ability->isCastable(this)) break;
 				if (index == choice - 1) {
-					ability->payCost(this);
-					ability->caster = this->game->getPriorityPlayer(); // persistent pointer to this
+					ability->caster = this;
 					ability->card = &*card;
+					ability->payCost(this);
 					if (ability->isManaAbility()) { // do not stack
 						ability->updatePointers();
 						ability->evalute();
 					} else {
 						this->game->stack.addAbility(*ability);
-						//this->game->stack.abilities.back().card = &(*it);
 					}
 					return;
 				}
@@ -119,7 +121,6 @@ void Player::play(bool sorcery)
 		if (card.hasType("land")) {
 			this->landDropsLeft--;
 			this->hand.move(card, &this->battlefield); // Lands do not stack
-			//this->battlefield.cards.back().callback("enterBattlefield", &(this->battlefield.cards.back()));
 		} else {
 			card.payCost(this);
 			this->hand.move(card, &this->game->stack);

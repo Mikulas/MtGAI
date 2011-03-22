@@ -118,6 +118,10 @@ bool Castable::payCost(int (*pointer)[14], bool paying)
 			}
 		}
 	}
+
+	for (int i = 0; i < sizeof(mana) / sizeof(int); i++) {
+		assert(mana[i] >= 0);
+	}
 	
 	vector<string> cost = this->getCost().second;
 	for (vector<string>::iterator it = cost.begin(); it != cost.end(); ++it) {

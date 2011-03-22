@@ -1,3 +1,5 @@
+//#define NDEBUG // disable asserts
+
 #include <iostream>
 #include <string>
 #include <time.h>
