@@ -68,9 +68,8 @@ void Database::buildCache()
 bool Database::isCached(string name)
 {
 	for (vector<Card>::iterator it = Database::cache.begin(); it != Database::cache.end(); ++it) {
-		if (it->name == name) {
+		if (it->name == name)
 			return true;
-		}
 	}
 	return false;
 }

@@ -41,8 +41,8 @@ void Ability::addEffect(Effect effect)
 
 void Ability::evalute()
 {
-	for (vector<Effect>::iterator it = this->effects.begin(); it != this->effects.end(); ++it) {
-		it->evalute();
+	for (vector<Effect>::iterator effect = this->effects.begin(); effect != this->effects.end(); ++effect) {
+		effect->evalute();
 	}
 }
 

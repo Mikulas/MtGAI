@@ -12,9 +12,8 @@ void GameStack::addCard(Card card)
 {
 	bool found = false;
 	this->foreach([&](Card *it) {
-		if (card == *it) {
+		if (card == *it)
 			found = true;
-		}
 	});
 
 	if (!found)
@@ -45,11 +44,10 @@ void GameStack::execute()
 		if (this->queue.back() == 0) {
 			cout << "\tcard " << this->cards.back().name << " on stack" << endl;
 			this->cards.back().evalute();
-			if (this->cards.back().isPermanent()) {
+			if (this->cards.back().isPermanent())
 				this->move(this->cards.back(), &(this->cards.back().controller->battlefield));
-			} else {
+			else
 				this->move(this->cards.back(), &(this->cards.back().controller->graveyard));
-			}
 		} else {
 			cout << "\tability container on stack" << endl;
 			this->abilities.back().evalute();

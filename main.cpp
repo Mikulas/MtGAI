@@ -10,6 +10,7 @@ using namespace std;
 int main (int argc, char * const argv[])
 {
 	srand((unsigned int)time(NULL));
+	/** @todo add one huge try catch and output the error */
 
 	//Database::buildCache();
 	Database db = Database();

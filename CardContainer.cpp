@@ -12,9 +12,8 @@ void CardContainer::addCard(Card card)
 {
 	bool found = false;
 	this->foreach([&](Card *it) {
-		if (card == *it) {
+		if (card == *it)
 			found = true;
-		}
 	});
 
 	if (!found)
@@ -36,7 +35,7 @@ void CardContainer::move(Card card_moved, CardContainer *container)
 
 void CardContainer::print()
 {
-	this->foreach([&](Card *card){cout << "\t" << card->name << endl;});
+	this->foreach([&](Card *card) {cout << "\t" << card->name << endl;} );
 }
 
 CardContainer::~CardContainer(void)

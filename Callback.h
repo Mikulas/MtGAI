@@ -15,9 +15,9 @@ public:
 	void registerCallback(string name, Function callback)
 	{
 		bool found = false;
-		for (CallbackContainer::iterator it = this->callbacks.begin(); it != this->callbacks.end(); ++it) {
-			if ((*it).first == name) {
-				(*it).second.push_back(callback);
+		for (CallbackContainer::iterator container = this->callbacks.begin(); container != this->callbacks.end(); ++container) {
+			if (container->first == name) {
+				container->second.push_back(callback);
 				found = true;
 				break;
 			}
@@ -31,9 +31,9 @@ public:
 
 	void callback(string name, T* argument)
 	{
-		for (CallbackContainer::iterator it = this->callbacks.begin(); it != this->callbacks.end(); ++it) {
-			if ((*it).first == name) {
-				for (vector<Function>::iterator cb = (*it).second.begin(); cb != (*it).second.end(); ++cb) {
+		for (CallbackContainer::iterator container = this->callbacks.begin(); container != this->callbacks.end(); ++container) {
+			if (container->first == name) {
+				for (vector<Function>::iterator cb = container->second.begin(); cb != container->second.end(); ++cb) {
 					Function call = *cb;
 					call(argument);
 				}

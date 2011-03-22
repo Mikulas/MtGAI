@@ -48,6 +48,7 @@ bool Card::validateSubtype(string subtype, vector<string> types)
 	for (vector<string>::iterator it = types.begin(); it != types.end(); ++it) {
 		string type = *it;
 		validateType(type);
+		/** @todo fixme */
 		if (type == "artifact") for (unsigned int i = 0; i < sizeof(artifact) / sizeof(string); i++) {if (artifact[i] == subtype) return true;};
 		if (type == "enchantement") for (unsigned int i = 0; i < sizeof(enchantement) / sizeof(string); i++) {if (enchantement[i] == subtype) return true;};
 		if (type == "land") for (unsigned int i = 0; i < sizeof(land) / sizeof(string); i++) {if (land[i] == subtype) return true;};
@@ -72,7 +73,7 @@ Card::Card(string name)
 
 void Card::addRule(string rule)
 {
-	tr1::regex rg_enters = tr1::regex(this->name + " enters the battlefield ([^.]+).");
+	tr1::regex rg_enters(this->name + " enters the battlefield ([^.]+).");
 	tr1::cmatch res;
 	if (regex_match(rule.c_str(), res, rg_enters) && res[1] == "tapped") {
 		this->registerCallback("enterBattlefield", [this](Card* card) {
@@ -191,8 +192,8 @@ bool Card::isPermanent()
 
 bool Card::isLimited()
 {
-	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
-		if (*it == string("A deck can have any number of cards named ") + this->name)
+	for (vector<string>::iterator rule = this->rules.begin(); rule != this->rules.end(); ++rule) {
+		if (*rule == string("A deck can have any number of cards named ") + this->name)
 			return false;
 	}
 
@@ -235,8 +236,8 @@ void Card::makeUnique()
 bool Card::isInstant()
 {
 	bool hasFlash = false;
-	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
-		if (*it == "Flash") {
+	for (vector<string>::iterator rule = this->rules.begin(); rule != this->rules.end(); ++rule) {
+		if (*rule == "Flash") {
 			hasFlash = true;
 			break;
 		}
@@ -252,24 +253,23 @@ void Card::evalute()
 vector<Ability> Card::getAbilities()
 {
 	vector<Ability> abilities;
-	tr1::regex ability = tr1::regex("([^:]+): ([^.]+).");
+	tr1::regex ability("([^:]+): ([^.]+).");
 	tr1::cmatch res;
-	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
-		if (tr1::regex_match((*it).c_str(), res, ability)) {
+	for (vector<string>::iterator rule = this->rules.begin(); rule != this->rules.end(); ++rule) {
+		if (tr1::regex_match(rule->c_str(), res, ability))
 			abilities.push_back(Ability(this, res[1], res[2]));
-		}
 	}
-	for (vector<string>::iterator it = this->subtypes.begin(); it != this->subtypes.end(); ++it) { // basic land handler
+	for (vector<string>::iterator subtype = this->subtypes.begin(); subtype != this->subtypes.end(); ++subtype) { // basic land handler
 		string effect = "";
-		if (*it == "forest") {
+		if (*subtype == "forest") {
 			effect = "Add {G} to your mana pool";
-		} else if (*it == "island") {
+		} else if (*subtype == "island") {
 			effect = "Add {U} to your mana pool";
-		} else if (*it == "mountain") {
+		} else if (*subtype == "mountain") {
 			effect = "Add {R} to your mana pool";
-		} else if (*it == "plains") {
+		} else if (*subtype == "plains") {
 			effect = "Add {W} to your mana pool";
-		} else if (*it == "swamp") {
+		} else if (*subtype == "swamp") {
 			effect = "Add {B} to your mana pool";
 		}
 		if (effect != "") {
@@ -284,12 +284,11 @@ vector<string> Card::getAdditionalCost()
 {
 	vector<string> cost;
 
-	tr1::regex rg_cost = tr1::regex("As an additional cost to cast " + this->name + ", ([^.]*).");
+	tr1::regex rg_cost("As an additional cost to cast " + this->name + ", ([^.]*).");
 	tr1::cmatch res;
-	for (vector<string>::iterator it = this->rules.begin(); it != this->rules.end(); ++it) {
-		if (tr1::regex_match((*it).c_str(), res, rg_cost)) {
+	for (vector<string>::iterator rule = this->rules.begin(); rule != this->rules.end(); ++rule) {
+		if (tr1::regex_match(rule->c_str(), res, rg_cost))
 			cost.push_back(res[1]);
-		}
 	}
 	return cost;
 }
