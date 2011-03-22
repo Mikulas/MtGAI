@@ -86,6 +86,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardContainer.h" />
     <ClInclude Include="Castable.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Ability.h" />

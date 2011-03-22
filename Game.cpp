@@ -70,56 +70,56 @@ void Game::turn(int turn_number)
 {
 	Player *active = this->getActivePlayer();
 	Player *opponent = this->getInactivePlayer();
-
+	
 	cout << "### beginning" << endl;
 	//- untap
-		//phase in and out simultaneously, no stack
+	// phase in and out simultaneously, no stack
 	for(vector<Card>::iterator card = active->battlefield.cards.begin(); card != active->battlefield.cards.end(); card++) {
 		card->callback("phase", &*card);
 	}
-		//optional untap, no stack
+	// optional untap, no stack
 	for(vector<Card>::iterator card = active->battlefield.cards.begin(); card != active->battlefield.cards.end(); card++) {
 		card->tapped = !card->isUntappable;
 	}
-		//begin upkeep trigger
+	// begin upkeep trigger
 	this->callback("beginUpkeep", this);
-		//untap trigger
+	// untap trigger
 	this->callback("untap", this);
-		//active player priority
+	// active player priority
 	cout << "### beginning - draw" << endl;
 	this->playByPriority(false);
 	this->callback("nextPhase", this);
-		//active player draws a card
+	// active player draws a card
 	if (turn_number != 0 && active->canDraw)
 		active->draw();
-		//begin draw trigger
+	// begin draw trigger
 	cout << "### beginning - upkeep" << endl;
 	this->callback("draw", this);
-		//active player priority
+	// active player priority
 	this->playByPriority(false);
 	this->callback("nextPhase", this);
-	//
+	
+	
 	cout << "### precombat main" << endl;
 	//	begin main phase trigger
-	//	active player priority
-	//	active player can play land, artifact, creature, enchantement, planeswalker, sorcery
-	//	lands do not enter stack
 	this->playByPriority(true);
 	this->callback("nextPhase", this);
-	//
+	
+	
 	cout << "### combat" << endl;
 	//- beginning of combat
-	//	
 	//- declare attackers
 	//- declare blockers
 	//- combat damage
 	//- end of combat
-	//
+	
+	
 	cout << "### postcombat main" << endl;
-		//active player priority
+	//active player priority
 	this->playByPriority(true);
 	callback("nextPhase", this);
-	//
+
+
 	cout << "### end" << endl;
 	this->callback("nextPhase", this);
 	this->callback("cleanup", this);
