@@ -79,7 +79,7 @@ void Game::turn(int turn_number)
 	});
 		//optional untap, no stack
 	active->battlefield.foreach([&](Card *card) {
-		card->tapped = card->isUntappable;
+		card->tapped = card->isUntappable; // TODO untapping does not work properly
 	});
 		//begin upkeep trigger
 	this->callback("beginUpkeep", this);
