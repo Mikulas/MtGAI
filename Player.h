@@ -31,7 +31,7 @@ public:
 	int getManaSum(bool = false);
 
 	void emptyManaPool();
-	void play(bool);
+	bool play(bool);
 	void draw();
 	void print();
 };

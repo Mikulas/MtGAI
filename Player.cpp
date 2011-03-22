@@ -25,7 +25,7 @@ void Player::emptyManaPool()
 	}
 }
 
-void Player::play(bool sorcery)
+bool Player::play(bool sorcery)
 {
 	cout << "What card do you want to play?" << endl;
 	int index = 1;
@@ -94,6 +94,7 @@ void Player::play(bool sorcery)
 	if (choice == 0) {
 		cout << "passed" << endl;
 		this->passed = true;
+		return true;
 	} else if (choice <= abilities_size) {
 		int index = 0;
 		for (vector<Card>::iterator card = this->battlefield.cards.begin(); card != this->battlefield.cards.end(); ++card) {
@@ -107,10 +108,11 @@ void Player::play(bool sorcery)
 					if (ability->isManaAbility()) { // do not stack
 						ability->updatePointers();
 						ability->evalute();
+						return false;
 					} else {
 						this->game->stack.addAbility(*ability);
+						return true;
 					}
-					return;
 				}
 				index++;
 			}
@@ -121,10 +123,12 @@ void Player::play(bool sorcery)
 		if (card.hasType("land")) {
 			this->landDropsLeft--;
 			this->hand.move(card, &this->battlefield); // Lands do not stack
+			return false;
 		} else {
 			card.payCost(this);
 			this->hand.move(card, &this->game->stack);
 			cout << "card " << card.name << " moved to stack" << endl;
+			return true;
 		}
 	}
 }
