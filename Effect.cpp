@@ -32,7 +32,7 @@ bool Effect::hasTarget()
 
 bool Effect::isManaEffect()
 {
-	tr1::regex rg_pool("mana pool"); // TODO this should be more specific, add "add" to the regex somewhere
+	tr1::regex rg_pool("[Aa]dd[^.]*mana pool");
 	return tr1::regex_search(this->effect, rg_pool);
 }
 
