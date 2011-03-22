@@ -2,12 +2,24 @@
 
 void Hand::discard(int count)
 {
-	// IMPLEMENT player choice for discard
 	if (count <= 0)
 		throw new exception("Invalid count given, expected positive integer");
 
-	cout << "player is discarding a card" << endl;
-	for (int i = 0; i < count; i++) {
-		this->cards.pop_back();
+	cout << "what card do you want to discard?\n";
+	for (int i = 0; i < count; i++) { // almost always one
+		int index = 0;
+		for (vector<Card>::iterator card = this->cards.begin(); card != this->cards.end(); card++) {
+			cout << "[" << index << "] " << card->name << endl;
+			index++;
+		}
+		
+		string buffer;
+		int choice;
+		do {
+			getline(cin, buffer);
+			choice = atoi(buffer.c_str());
+		} while (choice < 0 || choice > index);
+
+		this->cards.erase(this->cards.begin() + choice);
 	}
 }
