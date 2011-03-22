@@ -26,6 +26,8 @@ public:
 	void setTarget(Player*);
 	void setTarget(Card*);
 	void setTarget(Effect*);
+	bool hasTarget();
+	bool isManaEffect();
 
 	void evalute();
 };

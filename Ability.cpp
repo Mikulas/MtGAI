@@ -46,6 +46,25 @@ void Ability::evalute()
 	}
 }
 
+bool Ability::isManaAbility()
+{
+	bool isManaAbility = true;
+	for (vector<Effect>::iterator effect = this->effects.begin(); effect != this->effects.end(); effect++) {
+		if (effect->hasTarget() || !effect->isManaEffect()) {
+			isManaAbility = false;
+			break;
+		}
+	}
+	return !this->card->hasType("planeswalker") && isManaAbility; // loyal abilities are not mana abilities
+}
+
+void Ability::updatePointers()
+{
+	for (vector<Effect>::iterator effect = this->effects.begin(); effect != this->effects.end(); effect++) {
+		effect->parent = this;
+	}
+}
+
 Castable::Cost Ability::getCost()
 {
 	string mana_cost;

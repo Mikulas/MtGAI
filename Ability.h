@@ -20,8 +20,10 @@ public:
 
 	vector<string> cost;
 
+	bool isManaAbility();
 	virtual Castable::Cost getCost();
 	virtual Card* getCard();
+	void updatePointers();
 
 	Ability(Card*);
 	Ability(Card*, string, string);

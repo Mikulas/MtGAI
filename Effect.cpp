@@ -25,13 +25,24 @@ void Effect::setTarget(Effect* effect)
 	this->target_effects.push_back(effect);
 }
 
+bool Effect::hasTarget()
+{
+	return !(this->target_players.size() == this->target_effects.size() == this->target_players.size() == 0);
+}
+
+bool Effect::isManaEffect()
+{
+	tr1::regex rg_pool("mana pool"); /** @todo isn't this too plain? */
+	return tr1::regex_search(this->effect, rg_pool);
+}
+
 void Effect::evalute()
 {
 	Player* caster = this->parent->caster;
 	cout << "evaluating effect: " << this->effect << endl;
 	
-	tr1::regex rg_sentence = tr1::regex("Add (.*?) to your mana pool");
-	tr1::regex rg_mana = tr1::regex("\\{[GURWB]\\}|\\{\\d+\\}|one mana of any color");
+	tr1::regex rg_sentence("Add (.*?) to your mana pool");
+	tr1::regex rg_mana("\\{[GURWB]\\}|\\{\\d+\\}|one mana of any color");
 	tr1::cmatch res;
 	const tr1::sregex_token_iterator end;
 	if (tr1::regex_match(this->effect.c_str(), res, rg_sentence)) {

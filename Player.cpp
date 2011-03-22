@@ -98,9 +98,14 @@ void Player::play(bool sorcery)
 				if (index == choice - 1) {
 					ability->payCost(this);
 					ability->caster = this->game->getPriorityPlayer(); // persistent pointer to this
-					this->game->stack.addAbility(*ability);
-					this->game->stack.abilities.back().card = &(*it);
-					// set parent here 
+					ability->card = &*it;
+					if (ability->isManaAbility()) { // do not stack
+						ability->updatePointers();
+						ability->evalute();
+					} else {
+						this->game->stack.addAbility(*ability);
+						//this->game->stack.abilities.back().card = &(*it);
+					}
 					return;
 				}
 				index++;

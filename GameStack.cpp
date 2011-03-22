@@ -28,9 +28,7 @@ void GameStack::addCard(Card card)
 void GameStack::addAbility(Ability ability)
 {
 	this->abilities.push_back(ability);
-	for (vector<Effect>::iterator effect = this->abilities.back().effects.begin(); effect != this->abilities.back().effects.end(); effect++) {
-		effect->parent = &(this->abilities.back());
-	}
+	this->abilities.back().updatePointers();
 
 	this->queue.push_back(1);
 }
