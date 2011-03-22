@@ -87,8 +87,8 @@ Card Database::get(string name)
 	}
 	if (!cached) {
 		ifstream data;
-		data.open("C:\\Users\\Mikulas\\Documents\\Visual Studio 2010\\Projects\\MtGAI\\data\\cards.xml");
-		//data.open("X:\\Projects\\MtGAI\\data\\cards.xml");
+		//data.open("C:\\Users\\Mikulas\\Documents\\Visual Studio 2010\\Projects\\MtGAI\\data\\cards.xml");
+		data.open("X:\\Projects\\MtGAI\\data\\cards.xml");
 		string input;
 		tr1::regex rg_card(string("[ \t]*<name>") + name + string("</name>"));
 		tr1::regex rg_node("[ \t]*<([^ ]+)([^>]*)>(.*?)</([^>]+)>");

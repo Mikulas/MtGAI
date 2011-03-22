@@ -113,6 +113,8 @@ bool Castable::payCost(int (*pointer)[14], bool paying)
 			} else if (mana[SnowMulticolor] > 0) {
 				mana[SnowMulticolor] -= 1;
 				mana[Colorless] += 1;
+			} else {
+				return false;
 			}
 		}
 	}
@@ -130,6 +132,7 @@ bool Castable::payCost(int (*pointer)[14], bool paying)
 			return false;
 		}
 	}
+	/** @todo check that no index is lower than zero, otherwise return false */
 
 	if (paying) {
 		for (int i = 0; i < sizeof(*pointer) / sizeof(int); i++) {
